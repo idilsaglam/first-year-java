@@ -27,5 +27,13 @@ public class Test {
         pot2.description(c1);
         pot3.description(c3);
 
+
+        Temperature temperature = new Temperature(5,"Fahrenheit");
+        Temperature t2 = new Temperature(8,"Fahrenheit");
+
+        temperature.afficher();
+        System.out.println(temperature.read(temperature.unite));
+
+
     }
 }
