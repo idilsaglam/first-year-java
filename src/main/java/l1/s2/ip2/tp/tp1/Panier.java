@@ -1,3 +1,5 @@
+package l1.s2.ip2.tp.tp1;
+
 import java.util.Arrays;
 
 public class Panier {
