@@ -1,3 +1,5 @@
+package l1.s2.ip2.tp.tp1;
+
 public class Etudiant {
         String nom;
         String prenom;
