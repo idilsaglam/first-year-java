@@ -1,3 +1,5 @@
+package l1.s2.ip2.tp.tp1;
+
 public class TestEtudiant {
 
     public static void main(String[] args) {
