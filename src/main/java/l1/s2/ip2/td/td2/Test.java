@@ -14,5 +14,18 @@ public class Test {
         Confiture confiture = new Confiture("Fraise",50,120);
         confiture.description();
 
+        Confiture c3 = new Confiture("Orange",90,1040);
+
+        Pot pot = new Pot(confiture,50);
+        System.out.println(Pot.dernierNumero());
+        Pot pot2 = new Pot(c1,20);
+        System.out.println(Pot.dernierNumero());
+        Pot pot3 = new Pot(c3,40);
+        System.out.println(Pot.dernierNumero());
+
+        pot.description(confiture);
+        pot2.description(c1);
+        pot3.description(c3);
+
     }
 }
