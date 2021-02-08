@@ -1,7 +1,5 @@
 package l1.s2.ip2.td.td2;
 
-import java.util.Locale;
-
 public class Temperature {
     double temp;
     String unite;
@@ -30,8 +28,8 @@ public class Temperature {
         this.unite = t.unite;
     }
 
-    public void afficher(Temperature temperature){
-        System.out.println(temperature.temp + temperature.unite);
+    public void afficher(){
+        System.out.println(this.temp + " " + this.unite);
     }
 
     private void conversionKC(Temperature temperature){
