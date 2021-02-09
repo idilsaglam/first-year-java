@@ -11,8 +11,12 @@ public class Pot {
         COUNTER++;
         this.id = COUNTER;
     }
-    public void description(Confiture c){
-       c.description();
+    public String description(){
+       return String.format(
+               "Pot de %d grammes contient %s",
+               this.quantiteConfiture,
+               this.confiture.description()
+       );
     }
     public static int dernierNumero(){
         return COUNTER;
