@@ -28,11 +28,9 @@ premier constructeur en fixant un paramètre)
 
 ### Réponse 2 :
 ```java
- Confiture(String nature,int cal){
-        this.fruit = nature;
-        this.cal = cal;
-        proportion = 50;
- }
+Confiture(String nature,int cal){
+    this(nature, 50, cal);
+}
 ```
 ### Question 3 :
 Écrivez une méthode publique d’objet (c.à.d non statique) `description() et qui renvoie
@@ -73,9 +71,8 @@ cette confiture. (Il faut simplement faire un calcul qui respecte les proportion
 
 ```java
 public int calculerCal(int gramme){
-    return (gramme*100)/50;
+        return this.cal / 100 * gramme;
 }
-   
 ```
 ### Question 6 :
 Écrivez une méthode de signature `public boolean egal(Confiture c)` qui s’adresse à une
@@ -126,6 +123,12 @@ public String getFruit(){
     return this.fruit;
 }
 ```
+
+```java
+public void setCal(int cal){
+    this.cal = cal;
+}
+```
 ### Question 10 :
 En fait la valeur calorique dépend principalement de la quantité de sucre, qui est de 387 Kca
 pour 100 g, la valeur calorique du fruit est négligeable. Stockez cette valeur dans une variable
@@ -135,7 +138,8 @@ adéquate
 On va ajouter un attribut `int sucre` et on va ajouter aux constructeurs cette ligne suivante:
 
 ```java
-this.sucre = 387 / 100 * this.proportion;
+this.sucre = 387 * this.proportion /100;
+
 ```
 ### Question 11 :
 Écrivez un modifieur de proportion en précisant son domaine d’utilisation.
