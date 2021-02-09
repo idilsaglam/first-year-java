@@ -29,7 +29,6 @@ public class Test {
         System.out.println(pot2.description());
         System.out.println(pot3.description());
 
-
         Temperature temperature = new Temperature(5,"Fahrenheit");
         Temperature t2 = new Temperature(8,"Fahrenheit");
         Temperature t3 = new Temperature(200, "Kelvin");
