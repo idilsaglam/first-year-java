@@ -19,13 +19,14 @@ public class Confiture {
 
     public String description(){
         return String.format(
-                "Confiture de %s, %d%% de fruit, %d calories aux 100 grammes.",
+            "Confiture de %s, %d%% de fruit, %d calories aux 100 grammes.",
                 this.fruit,
                 this.proportion,
                 this.cal
         );
     }
-    public int calculerCal(int gramme){
+
+    public int calculerCal(int gramme) {
         return this.cal / 100 * gramme;
     }
 
