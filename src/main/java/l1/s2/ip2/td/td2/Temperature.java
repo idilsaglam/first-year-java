@@ -5,7 +5,8 @@ public class Temperature {
     String unite;
 
     Temperature(){
-        Temperature temperature = new Temperature(0,"Kelvin");
+       this.temp = 0;
+       this.unite = "Kelvin";
     }
 
     Temperature(double temp, String unite){
@@ -27,23 +28,23 @@ public class Temperature {
         this.temp = t.temp;
         this.unite = t.unite;
     }
-
-    public void afficher(){
-        System.out.println(this.temp + " " + this.unite);
+    @Override
+    public String toString(){
+        return String.format("%f %s",this.temp, this.unite);
     }
 
-    private void conversionKC(Temperature temperature){
-        if(!temperature.unite.equals("Kelvin")){
-            return;
+    private Temperature conversionKC(Temperature temperature){
+        if(temperature.unite.equals("Kelvin")){
+            return  new Temperature(temperature.temp - 273.15,"Celsius");
         }
-        temperature.temp -= 273.15;
+        return null;
     }
 
-    private void conversionFC(Temperature temperature){
-        if(!temperature.unite.equals("Fahrenheit")){
-            return;
+    private Temperature conversionFC(Temperature temperature){
+        if(temperature.unite.equals("Fahrenheit")){
+            return new Temperature(5./9 * (temperature.temp - 32),"Celsius");
         }
-        temperature.temp = 9./5 * temperature.temp + 32;
+        return null;
     }
 
     public double read(String unite){
@@ -53,34 +54,52 @@ public class Temperature {
         return Double.NEGATIVE_INFINITY;
     }
 
-    public boolean isEqual(Temperature t, Temperature t2){
-        if(t.temp == t2.temp && t.unite.equals(t2.unite)){
-            return true;
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Temperature){
+            Temperature to = (Temperature)o;
+            return (to.unite.equals(this.unite) && to.temp == this.temp);
         }
         return false;
     }
 
-    public Temperature plusBasseQue(Temperature t, Temperature t2){
-        if(isEqual(t,t2)){
-            return t;
-        };
-        if (t.unite.equals("Kelvin")) {
-            conversionKC(t);
+    public boolean plusBasseQue(Temperature t) {
+        if(!this.unite.equals(t.unite)) {
+            Temperature t1, t2;
+            switch (t.unite.toLowerCase()) {
+                case "kelvin":
+                    t2 = conversionKC(t);
+                case "fahrenheit":
+                    t2 = conversionFC(t);
+                default:
+                    t2 = t;
+            }
+            switch (this.unite.toLowerCase()) {
+                case "kelvin":
+                    t1 = conversionKC(this);
+                case "fahrenheit":
+                    t1 = conversionFC(this);
+                default:
+                    t1 = t;
+            }
+            return t1.temp < t2.temp;
         }
-        if(t2.unite.equals("Kelvin")){
-            conversionKC(t2);
-        }
-        if(t.unite.equals("Fahrenheit")){
-            conversionFC(t);
-        }
-        if(t2.unite.equals("Fahrenheit")){
-            conversionFC(t2);
-        }
-        if(t.temp > t2.temp){
-            return t;
-        }
-        return t2;
+        return(this.temp < t.temp);
     }
 
+    public double getTemp() {
+        return temp;
+    }
 
+    public String getUnite() {
+        return unite;
+    }
+
+    public void setUnite(String unite) {
+        this.unite = unite;
+    }
+
+    public void setTemp(double temp) {
+        this.temp = temp;
+    }
 }
