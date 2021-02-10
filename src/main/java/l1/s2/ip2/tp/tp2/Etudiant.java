@@ -15,4 +15,24 @@ public class Etudiant {
         sommeDesNotes += this.note;
     }
 
+    public void afficher(){
+        System.out.println(this.nom +" "+ this.prenom+": "+this.note);
+    }
+
+    public boolean estAdmis(){
+    return(this.note >= 10);
+    }
+    public static double moyenne(){
+        return sommeDesNotes/nombreDEtudiants;
+    }
+    public boolean meilleurQueLaMoyenne(){
+        return(this.note>moyenne());
+    }
+    public void modifierNote(double nouvelleNote){
+        this.note = nouvelleNote;
+    }
+
+
+
+
 }
