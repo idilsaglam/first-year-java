@@ -33,16 +33,43 @@ public class Temperature {
         return String.format("%f %s",this.temp, this.unite);
     }
 
-    private Temperature conversionKC(Temperature temperature){
-        if(temperature.unite.equals("Kelvin")){
-            return  new Temperature(temperature.temp - 273.15,"Celsius");
+    private Temperature conversionKC(){
+        if(this.unite.equals("Kelvin")){
+            return  new Temperature(this.temp - 273.15,"Celsius");
         }
         return null;
     }
 
-    private Temperature conversionFC(Temperature temperature){
-        if(temperature.unite.equals("Fahrenheit")){
-            return new Temperature(5./9 * (temperature.temp - 32),"Celsius");
+    private Temperature conversionFC(){
+        if(this.unite.equals("Fahrenheit")){
+            return new Temperature(5./9 * (this.temp - 32),"Celsius");
+        }
+        return null;
+    }
+
+    private Temperature conversationFK(){
+        if(this.unite.equals("Fahrenheit")){
+            return new Temperature((((this.temp-32) * 5) / 9) + 273.15,"Kelvin");
+        }
+        return null;
+    }
+
+    private Temperature conversationKF(){
+        if(this.unite.equals("Kelvin")){
+            return new Temperature((this.temp-273.15)*1.8000,"Fahrenheit");
+        }
+        return null;
+    }
+    private Temperature conversationCF(){
+        if(this.unite.equals("Celcius")){
+            return new Temperature((this.temp*1.8000+32.00),"Fahrenheit");
+        }
+        return null;
+    }
+
+    private Temperature conversationCK(){
+        if(this.unite.equals("Celcius")){
+            return new Temperature(this.temp+273.15,"Kelvin");
         }
         return null;
     }
@@ -51,7 +78,22 @@ public class Temperature {
         if(this.unite.equals(unite)){
             return this.temp;
         }
-        return Double.NEGATIVE_INFINITY;
+        if(unite.equals("Celcius") && this.unite.equals("Fahrenheit")){
+            return conversionFC().temp;
+        }
+        if(unite.equals("Celcius") && this.unite.equals("Kelvin")){
+            return conversionKC().temp;
+        }
+        if(unite.equals("Fahrenheit") && this.unite.equals("Kelvin")){
+            return conversationKF().temp;
+        }
+        if(unite.equals("Kelvin") && this.unite.equals("Fahrenheit")){
+            return conversationFK().temp;
+        }
+        if(unite.equals("Celcius") && this.unite.equals("Fahrenheit")){
+            return conversationCF().temp;
+        }
+        return conversationCK().temp;
     }
 
     @Override
@@ -63,29 +105,14 @@ public class Temperature {
         return false;
     }
 
+
     public boolean plusBasseQue(Temperature t) {
-        if(!this.unite.equals(t.unite)) {
-            Temperature t1, t2;
-            switch (t.unite.toLowerCase()) {
-                case "kelvin":
-                    t2 = conversionKC(t);
-                case "fahrenheit":
-                    t2 = conversionFC(t);
-                default:
-                    t2 = t;
-            }
-            switch (this.unite.toLowerCase()) {
-                case "kelvin":
-                    t1 = conversionKC(this);
-                case "fahrenheit":
-                    t1 = conversionFC(this);
-                default:
-                    t1 = t;
-            }
-            return t1.temp < t2.temp;
+        if(this.unite.equals(t.unite)) {
+            return(this.temp < t.temp);
         }
-        return(this.temp < t.temp);
+        return (this.read(t.unite) < t.temp);
     }
+
 
     public double getTemp() {
         return temp;
