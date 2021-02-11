@@ -117,15 +117,33 @@ public class Etudiant implements Comparable<Etudiant> {
         return note;
     }
 
-
+    // FIXME: UPDATE COMMENTS !!!
     /**
      * Méthode compare deux étudiants en fonction de leurs notes
-     * @param o Autre étudiant avec le quel nous comparons étudiant en cours.
+     * @param o Autre étudiant avec lequel nous comparons étudiant en cours.
      * @return 0 si les notes sont égaux, une valeur négative si l'étudiant o
      * a une note strictement supérieure à l'étudiant en cours, une valeur positif sinon
      */
     @Override
     public int compareTo(Etudiant o) {
-        return Double.compare(this.note, o.note);
+        int comparaisonResult = Double.compare(this.note, o.note);
+        if (comparaisonResult == 0) {
+            comparaisonResult = this.nom.compareTo(o.nom);
+            if(comparaisonResult > 0) {
+                return -1;
+            }
+            if (comparaisonResult == 0) {
+                comparaisonResult = this.prenom.compareTo(o.prenom);
+                if (comparaisonResult > 0) {
+                    return -1;
+                }
+                if(comparaisonResult == 0) {
+                    return (Math.random()< 0.5 ? -1 : 1);
+                }
+                return comparaisonResult;
+            }
+            return comparaisonResult;
+        }
+        return comparaisonResult;
     }
 }
