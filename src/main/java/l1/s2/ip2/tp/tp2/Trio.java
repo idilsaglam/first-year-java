@@ -14,8 +14,8 @@ public class Trio {
         double note = -1;
         int indexEtudiant = -1;
         for(int i=0; i<membres.length; i++){
-            if (membres[i].note > note) {
-                note = membres[i].note;
+            if (membres[i].getNote() > note) {
+                note = membres[i].getNote();
                 indexEtudiant = i;
             }
         }
@@ -27,10 +27,11 @@ public class Trio {
     }
 
     public double moyenne(){
+        // FIXME: nombreEtudiant == membres.length
         int nombreEtudiant = 0;
-        double somme= 0;
+        double somme = 0;
         for(int i=0; i<membres.length; i++){
-            somme += membres[i].note;
+            somme += membres[i].getNote();
             nombreEtudiant ++;
         }
         return somme/nombreEtudiant;
