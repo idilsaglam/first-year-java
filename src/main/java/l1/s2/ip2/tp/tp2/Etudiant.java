@@ -1,5 +1,9 @@
 package l1.s2.ip2.tp.tp2;
 
+/*
+* Question 2.5 (Version alternative): Nous ajoutons implements Comparable<Etudiant>
+* et ensuite redéfinissons le méthode compareTo(Etudiant o) dans cette classe.
+*/
 public class Etudiant implements Comparable<Etudiant> {
     private static int nombreDEtudiants = 0;
     private static double sommeDesNotes = 0;
@@ -117,33 +121,57 @@ public class Etudiant implements Comparable<Etudiant> {
         return note;
     }
 
-    // FIXME: UPDATE COMMENTS !!!
     /**
-     * Méthode compare deux étudiants en fonction de leurs notes
+     * Méthode compare deux étudiants
      * @param o Autre étudiant avec lequel nous comparons étudiant en cours.
-     * @return 0 si les notes sont égaux, une valeur négative si l'étudiant o
-     * a une note strictement supérieure à l'étudiant en cours, une valeur positif sinon
+     * @return une valeur négative si l'étudiant o
+     * est mieux classé que l'étudiant en cours, une valeur positif sinon
      */
     @Override
     public int compareTo(Etudiant o) {
+        // Nous faisons d'abord une simple comparaison des deux doubles
         int comparaisonResult = Double.compare(this.note, o.note);
+        // Si le résultat de ce comparaison est 0 c.à.d que les deux étudiants ont le même note
         if (comparaisonResult == 0) {
+            // Dans ce cas nous comparons leurs noms de familles
             comparaisonResult = this.nom.compareTo(o.nom);
             if(comparaisonResult > 0) {
+                /*
+                * Si le nom de famille de l'étudiant o dans l'ordre alphabétique est  avant que celui de l'étudiant courant.
+                * Nous considérons que l'étudiant o est mieux classé que l'étudiant courant.
+                */
                 return -1;
             }
             if (comparaisonResult == 0) {
+                // Si les deux étudiants ont la même note et le même de nom famille nous comparons leurs prénoms
                 comparaisonResult = this.prenom.compareTo(o.prenom);
                 if (comparaisonResult > 0) {
+                    /*
+                     * De même manière de les noms de familles, dans l'ordre alphabétique si le prénom de l'étudiant o
+                     * vient avant que celui de l'étudiant en cours. Nous considérons que l'étudiant o est mieux classé
+                     */
                     return -1;
                 }
                 if(comparaisonResult == 0) {
+                    /*
+                     * Si les deux étudiants ont le même nom, même prénom et même note.
+                     * Alors la comparaison sera faite de manière aléatoire
+                     */
                     return (Math.random()< 0.5 ? -1 : 1);
                 }
+                /*
+                 * Dans l'ordre alphabétique si le prénom de l'étudiant courant est avant de celui de l'étudiant o. Nous
+                 * retournons un entier positif
+                 */
                 return comparaisonResult;
             }
+            /*
+             * Dans l'ordre alphabétique si le nom de famille de l'étudiant courant est avant de celui de l'étudiant o. Nous
+             * retournons un entier positif
+             */
             return comparaisonResult;
         }
+        // Si la note des deux étudiants sont différents, nous retournons le résultat de comparaison.
         return comparaisonResult;
     }
 }
