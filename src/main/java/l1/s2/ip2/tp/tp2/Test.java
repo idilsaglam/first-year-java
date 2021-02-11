@@ -25,7 +25,7 @@ public class Test {
     System.out.println(e1.meilleurQueLaMoyenne());
 
     Trio trio = new Trio(e1,e2,idil);
-    System.out.println(trio.premier());
+    trio.premier().afficher();
 
     }
 }
