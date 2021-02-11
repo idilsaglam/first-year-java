@@ -49,7 +49,6 @@ public class Trio {
     }
 
 
-    // FIXME: UPDATE COMMENTS !!!
     /**
      * Question 2.5
      * @param prenom le prénom de l'étudiant que nous allons regarder son classement
@@ -59,13 +58,17 @@ public class Trio {
     public int classement(String prenom, String nom) {
         /*
          * Nous introduisons une variable indexEtudiant qui signifie l'index
-         * de l'étudiant qui a le prénom et nom passé en paramètre.
+         * du premier étudiant qui a le prénom et nom passé en paramètre.
          * Nous l'initialisons à -1 pour vérifier si un tel étudiant existe dans le trio
          */
         int indexEtudiant = -1;
         for (int i=0; i<this.membres.length; i++) {
             if (this.membres[i].prenom.equals(prenom) && this.membres[i].nom.equals(nom)) {
+                /* Une fois que nous trouvons un tel étudiant, nous réinitialisons la valeur de
+                * indexEtudiant avec l'index actuel
+                */
                 indexEtudiant = i;
+                // Puis nous sortons de la boucle
                 break;
             }
         }
@@ -77,19 +80,35 @@ public class Trio {
             return 0;
         }
         /*
-         * Nous comptons ensuite les valeurs négatives et les valeurs nulles dans le tableau comparaisonResult
-         * pour cela nous introduisons une variables greaters pour compter ces valeurs
+         * Ensuite, nous comparons les étudiants entre eux. Pour cela nous introduisons deux variables:
+         * - une variable de type int greaters qui contient le nombre d'étudiant qui est mieux classé que l'étudiant
+         * courant. Nous l'initialisons avec une valeur initiale à 0.
+         * - une variable comparaisonResult de type int qui contient le résultat des comparaisons. (Nous le déclarons en
+         * dehors de la boucle, pour éviter de faire des déclarations successifs dans la boucle).
          */
         int greaters = 0;
         int comparaisonResult;
         for (int i = 0; i < this.membres.length; i++) {
             if (this.membres[i] == null || i == indexEtudiant) {
+                /*
+                 * Si l'étudiant avec qui nous comparons est null ou a le même index que l'étudiant courant
+                 * nous passons à l'étudiant suivant.
+                 */
                 continue;
             }
-            comparaisonResult = (int)(this.membres[indexEtudiant].getNote() - this.membres[i].getNote());
+            /*
+             * Nous calculons la différence de note de l'étudiant courant avec la note de l'étudiant à l'index i
+             * si cette variable est < 0 l'étudiant à l'index i est sûrement mieux classé que l'étudiant en cours.
+             * si cette variable est > 0 l'étudiant courant est mieux classé
+             * si cette variable est 0 les notes sont égaux.
+             */
+            comparaisonResult = (int)Math.signum(this.membres[indexEtudiant].getNote() - this.membres[i].getNote());
             if (comparaisonResult < 0) {
+                /*
+                 * Si la note de l'étudiant index i est supérieur à celui de l'étudiant courant.
+                 * Nous incrémentons notre compteur de 1.
+                 */
                 greaters++;
-                continue;
             }
             if (comparaisonResult == 0) {
                 // Si les deux étudiants ont la même note nous les comparons leurs nom de famille par ordre alphabétique
@@ -98,27 +117,36 @@ public class Trio {
                     // Dans le cas les deux etudiants ont le meme noms de famille, nous comparons leur prénoms.
                     comparaisonResult = this.membres[indexEtudiant].prenom.compareTo(this.membres[i].prenom);
                     if(comparaisonResult == 0){
-                        //Si les deux étudiants ont le meme nom & prenom, nous determinons le classement aléatoirement.
+                        //Si les deux étudiants ont le meme nom & prénom, nous déterminons le classement aléatoirement.
                         greaters += Math.random() < 0.5 ? 0 : 1;
                     }
                     if(comparaisonResult > 0){
-                        /* Si l'étudiant avec lequel nous comparons a un prénom plus petit que celui de l'étudiant
+                        /*
+                        * Si l'étudiant avec lequel nous comparons a un prénom plus petit que celui de l'étudiant
                         * courant.(Lexicographiquement parlant)
                         */
                         greaters++;
                     }
                 }
                 if(comparaisonResult > 0){
-                    /* Si l'étudiant avec lequel nous comparons a un nom de famille plus petit que celui de l'étudiant
+                    /*
+                     * Si l'étudiant avec lequel nous comparons a un nom de famille plus petit que celui de l'étudiant
                      * courant.(Lexicographiquement parlant)
                      */
                     greaters++;
                 }
             }
         }
+        // S'il y a n étudiants mieux classé que l'étudiant courant, le classement de l'étudiant courant sera n+1.
         return greaters+1;
     }
 
+    /**
+     * Question 2.5 (Version alternative)
+     * @param prenom le prénom de l'étudiant que nous allons regarder son classement
+     * @param nom le nom de famille de l'étudiant que nous allons regarder son classement
+     * @return le classement de l'étudiant passé en paramètre
+     */
     public int classementBis(String prenom, String nom) {
         /*
          * Nous introduisons une variable indexEtudiant qui signifie l'index
@@ -140,14 +168,23 @@ public class Trio {
             return 0;
         }
         /*
-         * Nous comptons ensuite les valeurs négatives et les valeurs nulles dans le tableau comparaisonResult
-         * pour cela nous introduisons une variables greaters pour compter ces valeurs
+         * Ensuite, nous comparons les étudiants entre eux. Pour cela nous introduisons
+         * une variable de type int greaters qui contient le nombre d'étudiant qui est mieux classé que l'étudiant
+         * courant. Nous l'initialisons avec une valeur initiale à 0.
          */
         int greaters = 0;
         for (int i = 0; i<this.membres.length; i++) {
             if (this.membres[i] == null || i == indexEtudiant) {
+                /*
+                 * Si l'étudiant avec qui nous comparons est null ou a le même index que l'étudiant courant
+                 * nous passons à l'étudiant suivant.
+                 */
                 continue;
             }
+            /*
+             * Pour comparer deux étudiants nous nous servons de la méthode compareTo que nous avons défini dans la
+             * classe Etudiant. 
+             */
             greaters += this.membres[indexEtudiant].compareTo(this.membres[i]) < 0 ? 1 : 0;
         }
         return greaters + 1;
