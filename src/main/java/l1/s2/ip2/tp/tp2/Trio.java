@@ -49,12 +49,12 @@ public class Trio {
     }
 
 
-
+    // FIXME: UPDATE COMMENTS !!!
     /**
      * Question 2.5
      * @param prenom le prénom de l'étudiant que nous allons regarder son classement
      * @param nom le nom de famille de l'étudiant que nous allons regarder son classement
-     * @return
+     * @return le classement de l'étudiant passé en paramètre
      */
     public int classement(String prenom, String nom) {
         /*
@@ -86,7 +86,7 @@ public class Trio {
             if (this.membres[i] == null || i == indexEtudiant) {
                 continue;
             }
-            comparaisonResult = this.membres[indexEtudiant].compareTo(this.membres[i]);
+            comparaisonResult = (int)(this.membres[indexEtudiant].getNote() - this.membres[i].getNote());
             if (comparaisonResult < 0) {
                 greaters++;
                 continue;
@@ -119,18 +119,64 @@ public class Trio {
         return greaters+1;
     }
 
+    public int classementBis(String prenom, String nom) {
+        /*
+         * Nous introduisons une variable indexEtudiant qui signifie l'index
+         * de l'étudiant qui a le prénom et nom passé en paramètre.
+         * Nous l'initialisons à -1 pour vérifier si un tel étudiant existe dans le trio
+         */
+        int indexEtudiant = -1;
+        for (int i=0; i<this.membres.length; i++) {
+            if (this.membres[i].prenom.equals(prenom) && this.membres[i].nom.equals(nom)) {
+                indexEtudiant = i;
+                break;
+            }
+        }
+        /*
+         * Si l'index est toujours -1, c'est à dire qu'un tel étudiant n'existe pas dans le trio.
+         * Dans ce cas nous retournons 0
+         */
+        if (indexEtudiant == -1) {
+            return 0;
+        }
+        /*
+         * Nous comptons ensuite les valeurs négatives et les valeurs nulles dans le tableau comparaisonResult
+         * pour cela nous introduisons une variables greaters pour compter ces valeurs
+         */
+        int greaters = 0;
+        for (int i = 0; i<this.membres.length; i++) {
+            if (this.membres[i] == null || i == indexEtudiant) {
+                continue;
+            }
+            greaters += this.membres[indexEtudiant].compareTo(this.membres[i]) < 0 ? 1 : 0;
+        }
+        return greaters + 1;
+    }
+
+    /**
+     * Question 2.6
+     * @return la moyenne du trio.
+     */
     public double moyenne() {
-        // FIXME: nombreEtudiant == membres.length
+        //On introduit une variable nombre Etudiant pour compter les etudiants non nulls.
         int nombreEtudiant = 0;
+        // On introduit une deuxième variable de type double pour faire la somme des notes des étudiants non nulls.
         double somme = 0;
-        for (int i = 0; i < membres.length; i++) {
-            somme += membres[i].getNote();
+        for (int i = 0; i < this.membres.length; i++) {
+            if(this.membres[i] == null){
+                continue;
+            }
+            somme += this.membres[i].getNote();
             nombreEtudiant++;
         }
+        //On calcule la moyenne en divisant la somme par le nombre d'étudiants non nulls.
         return somme / nombreEtudiant;
     }
 
+    /**
+     * @return true si la moyenne du trio est supérieur ou égal à la moyenne d'étudiant; false sinon
+     */
     public boolean meilleurQueLaMoyenne() {
-        return true;
+        return (this.moyenne() >= Etudiant.moyenne());
     }
 }
