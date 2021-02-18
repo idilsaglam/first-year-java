@@ -1,5 +1,3 @@
-package l1.s2.ip2.tp.tp3;
-
 public class Salon {
     Utilisateur[] utilisateurs;
     Message[] messages;
@@ -9,40 +7,64 @@ public class Salon {
     }
 
     public void ajouterUtilisateur(Utilisateur u){
-        Utilisateur[] ajouteUtilisateurs = new Utilisateur[this.utilisateurs.length+1];
+        // TODO: What happen if user already exists in the room ?
+        // TODO: What happens if u==null ?
+        Utilisateur[] newU = new Utilisateur[this.utilisateurs.length+1];
         for(int i=0; i<this.utilisateurs.length; i++){
-            ajouteUtilisateurs[i] = this.utilisateurs[i];
+            newU[i] = this.utilisateurs[i];
         }
-        ajouteUtilisateurs[this.utilisateurs.length+1] = u;
-        this.utilisateurs = ajouteUtilisateurs;
+        newU[newU.length-1] = u;
+        this.utilisateurs = newU;
     }
 
     public boolean estPresent(Utilisateur u){
+        // TODO: What happens if u==null ?
         for(int i=0; i<this.utilisateurs.length; i++){
-            if(this.utilisateurs[i].getPseudo().equals(u.getPseudo())){
+            // FIXME: == won't work need to use .equals instead
+            if(this.utilisateurs[i] == u){
                 return true;
             }
         }
         return false;
     }
 
-    public void ajouterMessage(Message message){
-        if(estPresent(message.utilisateur)){
-            Message[] updatedMessage = new Message[this.messages.length+1];
+    public void ajouterMessage(Message m){
+        // TODO: What happen if message already exists in the room ?
+        // TODO: What happens if m==null ?
+        if(estPresent(m.u)){
+            Message[] newM = new Message[this.messages.length+1];
             for(int i=0; i<this.messages.length; i++){
-                updatedMessage[i] = this.messages[i];
+                newM[i] = this.messages[i];
             }
-            updatedMessage[this.messages.length+1] = message;
-            this.messages =updatedMessage;
+            newM[newM.length-1] = m;
+            this.messages = newM;
         }
     }
 
     public void afficher(){
-        for(int i=0; i<messages.length; i++){
+        for(int i=0; i<this.messages.length; i++){
+            // TODO: System.out.printf
             System.out.println(
-                    messages[i].utilisateur + ":" + messages[i].message
+                this.messages[i].u.getPseudonyme() +
+                ": " +
+                this.messages[i].context
             );
         }
+    }
+    
+    public void exclusUtilisateur(Utilisateur u){
+        // TODO: What happens if u==null ?
+        int counter = 0;
+        Utilisateur[] nUtilisateurs = new Utilisateur[this.utilisateurs.length-1];
+        for(int i=0; i<this.utilisateurs.length; i++){
+            if(this.utilisateurs[i].equals(u)) {
+                continue;
+            }
+            nUtilisateurs[counter] = this.utilisateurs[i];
+            counter++;
+        }
+        this.utilisateurs = nUtilisateurs;
+        // FIXME: You need to delete all messages associated to this user
     }
 
 }
