@@ -1,12 +1,20 @@
+package l1.s2.ip2.tp.tp3;
 
+/**
+ * Exercice 2
+ */
 public class Message {
     public Utilisateur u;
-    public String context;
+    private String content;
 
-    Message(Utilisateur u, String context){
+    Message(Utilisateur u, String content){
         this.u = u;
-        this.context = context;
+        this.content = content;
     }
+    public String getContent(){
+        return this.content;
+    }
+
 
     
 }
