@@ -1,35 +1,42 @@
-package l1.s2.ip2.tp.tp3;
+public class Utilisateur{
+private String pseudo;
+private String motDePasse;
+private final String adresseMail;
 
-import jdk.jshell.execution.Util;
+Utilisateur(String pseudo, String motDePasse, String adresseMail){
+    this.pseudo = pseudo;
+    this.motDePasse = motDePasse;
+    this.adresseMail = adresseMail;
+}
+public boolean testMotDePasse(String m){
+    return(this.motDePasse.equals(m));
+}
 
-public class Utilisateur {
-    private String pseudo;
-    private String motDePasse;
-    private final String adresseMail;
+public void changeMotDePasse(String mo, String m){
+    if(testMotDePasse(mo)){
+        this.motDePasse = m;
+    }
+    return;
+}
 
-    //Constructeur
-    Utilisateur(String pseudo, String motDePasse, String adresseMail){
-        this.adresseMail = adresseMail;
-        this.motDePasse = motDePasse;
-        this.pseudo = pseudo;
-    }
-    public boolean testMotDePasse(String s){
-        return(s.equals(motDePasse));
-    }
-    public void changerMotDePasse(String motDePasse,String nouveauMotDePasse){
-        if(testMotDePasse(motDePasse)){
-            this.motDePasse = nouveauMotDePasse;
-        }else {
-            System.out.println("Wrong password");
-        }
-    }
+public String getPseudonyme(){
+    return this.pseudo;
+}
 
-    public String getPseudo(){
-        return this.pseudo;
-    }
-    public void setPseudo(String pseudo){
-        this.pseudo = pseudo;
-    }
+public void setPseudonyme(String s){
+    this.pseudo = s;
+}
 
+@Override
+public boolean equals(Object o){
+    if(o instanceof Utilisateur){
+        Utilisateur u = (Utilisateur)o;
+        return(
+            this.pseudo.equals(u.pseudo) &&
+            this.motDePasse == u.motDePasse &&
+            this.adresseMail.equals(u.adresseMail));
+    }
+    return false;
+}
 
 }
