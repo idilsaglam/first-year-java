@@ -1,12 +1,12 @@
-package l1.s2.ip2.tp.tp3;
 
 public class Message {
-    Utilisateur utilisateur;
-    String message = "";
-    Message(Utilisateur utilisateur, String message){
-        this.utilisateur= utilisateur;
-        this.message = message;
+    public Utilisateur u;
+    public String context;
+
+    Message(Utilisateur u, String context){
+        this.u = u;
+        this.context = context;
     }
 
-
+    
 }
