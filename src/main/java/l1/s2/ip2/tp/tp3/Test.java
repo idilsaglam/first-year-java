@@ -1,18 +1,24 @@
 package l1.s2.ip2.tp.tp3;
 
 public class Test {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Question 1.5
-        Utilisateur idil = new Utilisateur("idil", "123123","idil@hello.com");
-        Utilisateur fifi = new Utilisateur("fifi", "kakd?","fifi@hello.com");
+
+        // Déclarons deux utilisateur idil et fifi
+        Utilisateur idil = new Utilisateur("idil", "123123", "idil@hello.com");
+        Utilisateur fifi = new Utilisateur("fifi", "kakd?", "fifi@hello.com");
+
+        // Ceci va retourner true
         System.out.println(idil.testMotDePasse("123123"));
+
+        // Ceci va retourner false
         System.out.println(idil.testMotDePasse("abbba"));
 
         // Ceci ne doit pas changer le mots de passe car première argument est faux.
-        idil.changeMotDePasse("abbb","bb");
+        idil.changeMotDePasse("abbb", "bb");
 
         // Ceci doit changer le mots de passe d'Utilisateur idil par "bb".
-        idil.changeMotDePasse("123123","bb");
+        idil.changeMotDePasse("123123", "bb");
 
         //Ceci doit renvoyer "idil" car le pseudo d'Utilisateur idil est "idil'
         System.out.println(idil.getPseudonyme());
@@ -22,15 +28,12 @@ public class Test {
         System.out.println(idil.getPseudonyme());
 
         //Exercice 2
-        Message m = new Message(idil,"Hello World");
-        Message n = new Message(fifi,"Hello!");
+        Message m = new Message(idil, "Hello World");
+        Message n = new Message(fifi, "Hello!");
 
         System.out.println(m.getContent());
 
         //Question 3.6
-
-
-
 
 
     }
