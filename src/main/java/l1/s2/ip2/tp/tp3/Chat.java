@@ -87,34 +87,75 @@ public class Chat {
      * @return l'utilisateur qui a plus de messages sur les salons au total.
      */
     public Utilisateur bavarde() {
-      // Get array of all unique users from all salons
 
-        Utilisateur[] nUt = new Utilisateur[Integer.MAX_VALUE];
-        int c = 0;
+        // Le tableau uniqueUsers représente les utilisateurs uniques
+        Utilisateur[] uniqueUsers = new Utilisateur[0];
+        // La variable nbUniqueUtilisateur représente le nombre d'utilisateurs unique
+
         for(int i=0; i<this.salons.length; i++){
             for(int j=0; j<this.salons[i].utilisateurs.length; j++){
-                for(int g=0; g< nUt.length; g++){
-                    if (this.salons[i].utilisateurs[j].equals(nUt[g])) {
-                        continue;
+                int g = 0;
+                // Nous vérifions d'abord si l'utilisateur existe dans le tableau uniqueUsers
+                for(g=0; g < uniqueUsers.length; g++){
+                    if (this.salons[i].utilisateurs[j].equals(uniqueUsers[g])) {
+                        /*
+                         * Si l'utilisateur existe déjà dans le tableau des utilisateurs unique
+                         *  nous quittons cette boucle
+                         */
+                        break;
                     }
-                    nUt[c] = this.salons[i].utilisateurs[j];
+                }
+                if (g == uniqueUsers.length) {
+                    /*
+                     * Si la valeur de g est égale au nombre d'utilisateurs unique
+                     * C'est à dire que l'utilisateur n'existe pas dans le tableau uniqueUsers
+                    */
+                    Utilisateur[] nUtililisateurs = new Utilisateur[uniqueUsers.length + 1];
+                    for (int w = 0; w < uniqueUsers.length; w++) {
+                        nUtililisateurs[w] = uniqueUsers[w];
+                    }
+                    nUtililisateurs[nUtililisateurs.length - 1] = this.salons[i].utilisateurs[j];
+                    uniqueUsers = nUtililisateurs;
                 }
             }
         }
 
-        // In other array have total message number from all salons of each user (use nbMessage(Utilisateur u) class Salon
+        // Nous déclarons un second tableau pour conserver le nombre total des messages par chaque unique utilisateur
+        int[] nMessages = new int[uniqueUsers.length];
 
-        int[] nMessages = new int[nUt.length];
+        // Nous parcourons tous les messages de tous les salons
         for(int i=0; i<this.salons.length; i++){
-            for(int j=0; j<this.salons[i].utilisateurs.length; j++){
-
+            for(int j=0; j<this.salons[i].messages.length; j++) {
+                Message message = this.salons[i].messages[j];
+                int k = 0;
+                for (k=0; k< uniqueUsers.length; k++) {
+                    if (uniqueUsers[k].equals(message.getUtilisateur())) {
+                        /*
+                         * Quand on trouve l'utilisateur émis cette message
+                         * nous arrêtons la recherche
+                         */
+                        break;
+                    }
+                }
+                // Nous incrémentons le nombre total de message de l'utilisateur de 1
+                nMessages[k]++;
             }
         }
 
-        
-        // Get max index of all list at return it
-        // What happens if no user from no salon ?
-        // What happens if there's 2 or more users have same number of messages ?
+        // Nous parcourons le tableau nMessages pour récupérer l'index de l'élément maximum
+        int maxValue = Integer.MIN_VALUE, maxIndex = -1;
+        for (int i = 0; i<nMessages.length; i++) {
+            if (maxValue < nMessages[i]) {
+                maxIndex = i;
+                maxValue = nMessages[i];
+            }
+        }
+        /*
+         * Nous retournons null si maxIndex est égale à -1 (dans le cas il n'y a aucun utilisateur dans les salons)
+         * sinon nous retournons l'utilisateur à l'index maxIndex du tableau uniqueUsers.
+         */
+        return (maxIndex == -1 ? null : uniqueUsers[maxIndex]);
+
     }
 
 
