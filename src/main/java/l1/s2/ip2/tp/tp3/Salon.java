@@ -175,40 +175,4 @@ public class Salon {
         }
     }
 
-    /**
-     * Méthode retourne le nombre de messages d'un utilisateur
-     * @param u utilisateur pour lequel nous allons compter ses messages
-     * @return le nombre de message de l'utilisateur u
-     */
-    public int nbMessages(Utilisateur u) {
-        if (u == null) {
-            return -1;
-        }
-        int result = 0;
-        for (int i = 0; i < this.messages.length; i++) {
-            if (this.messages[i].getUtilisateur().equals((u))) {
-                result++;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Méthode retourne l'utilisateur qui a plus de messages dans le Salon
-     * @return Utilisateur qui a plus de messages dans le salon
-     */
-    public Utilisateur bavarde(){
-        int maxValue = -1, maxIndex = -1;
-        for(int i=0; i<this.utilisateurs.length; i++){
-            final int nbUserMessages = this.nbMessages(this.utilisateurs[i]);
-            if (maxValue < nbUserMessages) {
-                maxIndex = i;
-                maxValue = nbUserMessages;
-            }
-        }
-        return (maxIndex == -1 ? null : this.utilisateurs[maxIndex]);
-    }
-
-
-
 }
