@@ -99,4 +99,9 @@ public class Utilisateur {
         return false;
     }
 
+    @Override
+    public String toString(){
+        return this.getPseudonyme();
+    }
+
 }
