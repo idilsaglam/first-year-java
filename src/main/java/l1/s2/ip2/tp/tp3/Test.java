@@ -1,5 +1,7 @@
 package l1.s2.ip2.tp.tp3;
 
+import jdk.jshell.execution.Util;
+
 public class Test {
     public static void main(String[] args) {
         // Question 1.5
@@ -7,6 +9,10 @@ public class Test {
         // Déclarons deux utilisateur idil et fifi
         Utilisateur idil = new Utilisateur("idil", "123123", "idil@hello.com");
         Utilisateur fifi = new Utilisateur("fifi", "kakd?", "fifi@hello.com");
+        Utilisateur riri = new Utilisateur("riri", "kaddd?", "riri@hello.com");
+        Utilisateur lili = new Utilisateur("sssfffs", "kfkf?", "lili@hello.com");
+
+
 
         // Ceci va retourner true
         System.out.println(idil.testMotDePasse("123123"));
@@ -34,6 +40,43 @@ public class Test {
         System.out.println(m.getContent());
 
         //Question 3.6
+        Salon salon = new Salon(new Utilisateur[]{idil,fifi});
+        Salon salon2 = new Salon(new Utilisateur[]{fifi,riri});
+        Chat chat = new Chat();
+        //Ceci doit renvoyer false car Utilisateur riri n'est pas présent dans le salon
+        System.out.println(salon.estPresent(riri));
+        salon.ajouterUtilisateur(riri);
+        //Ceci doit renvoyer true car Utilisateur riri est maintenant présent dans le salon
+        System.out.println(salon.estPresent(riri));
+        //salon.ajouterMessage(idil,"Heyyy");
+        //Ceci doit ajouter le message n dans le salon.
+        salon.ajouterMessage(n);
+        //Ceci doit afficher fifi: Hello car dans le salon il y a que cet message.
+        salon.afficher();
+        // Ceci doit exclure l'utilisateur idil dans le salon.
+        salon.exclusUtilisateur(idil);
+
+        //Question 4.5
+        Chat ch = new Chat();
+        ch.ajouterSalon(salon);
+        ch.ajouterSalon(salon2);
+
+        // Ceci doit renvoyer true car riri est present
+        System.out.println(ch.estPresent(riri));
+        // Ceci doit renvoyer false car lili n'est pas present
+        System.out.println(ch.estPresent(lili));
+
+        // Ceci doit renvoyer le nombre de messages de riri
+        System.out.println(ch.nombreMessages(riri));
+
+        //Ceci doit renvoyer le plus bavarde utilisateur du chat
+        System.out.println(ch.bavarde());
+
+
+
+
+
+
 
 
     }
