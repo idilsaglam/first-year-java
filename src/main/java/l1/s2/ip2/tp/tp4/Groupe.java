@@ -14,11 +14,10 @@ public class Groupe {
      * Question 3.1 : Une méthode qui permet d'afficher la description de tout le groupe.
      */
     public void afficher(){
-        if(this.chefDeFile != null) {
-            System.out.println("Le chef : " + this.chefDeFile);
-        }else{
-            System.out.println("Il n'a pas de chef ds le group");
+        if(this.chefDeFile == null){
+            System.out.println("Group vide");
         }
+        this.chefDeFile.affiche();
     }
 
     public void ajouteNouveau(){
