@@ -151,7 +151,7 @@ public class Chat {
             }
         }
         /*
-         * Nous retournons null si maxIndex est égale à -1 (dans le cas il n'y a aucun utilisateur dans les salons)
+         * Nous retournons null si maxIndex est égale à -1 (dans le cas il n'y a aucun uti^^lisateur dans les salons)
          * sinon nous retournons l'utilisateur à l'index maxIndex du tableau uniqueUsers.
          */
         return (maxIndex == -1 ? null : uniqueUsers[maxIndex]);
