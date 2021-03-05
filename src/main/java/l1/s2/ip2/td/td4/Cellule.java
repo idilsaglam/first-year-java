@@ -5,7 +5,9 @@ public class Cellule {
     private Cellule suivant;
 
     public Cellule(String regime) {
+        // Intégrer un nouvel animal ayant un regime qui est passé en paramètre.
         this.content = new Animal(regime);
+
         this.suivant = null;
     }
 
