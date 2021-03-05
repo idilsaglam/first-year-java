@@ -37,5 +37,10 @@ public class Enclos{
         this.debut.afficher();
     }
 
+    // TODO: ex 1.7
+
+    public void retire(Cellule c){
+
+    }
 
 }
