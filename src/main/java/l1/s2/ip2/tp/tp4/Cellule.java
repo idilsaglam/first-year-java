@@ -31,11 +31,17 @@ public class Cellule {
      * L’ancien chef de file, s’il existait, est maintenant juste après lui.
      */
     //TODO:
-    public void prendreTete(Robot r){
-        if(!r.Correct()){
-            return;
+    public void prendreTete(Robot r) {
+    }
+
+        /**
+         * Question 3.1 : Une méthode qui permet d'afficher la description de tout le cellule.
+         */
+        public void affiche () {
+            System.out.println(this.rob.description());
+            if (this.suivant != null) {
+                this.suivant.affiche();
+            }
         }
 
     }
-
-}
