@@ -66,4 +66,15 @@ public class Robot {
     public void setEnergie(int energie){
         this.energie = energie;
     }
+
+    /**
+     * Question 3.5
+     */
+    public void chante(){
+        if(this.energie - 10 >= 0){
+            this.energie -= 10;
+        }else{
+            this.energie = 0;
+        }
+    }
 }
