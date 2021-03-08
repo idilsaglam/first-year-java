@@ -4,6 +4,7 @@ public class Cellule {
     private Robot rob;
     private Cellule suivant;
 
+
     /**
      * Question 2.2 :
      * Un constructeur de Cellule qui prend un argument de type Robot et un argument de type Cellule
@@ -33,7 +34,6 @@ public class Cellule {
     //TODO:
     public void prendreTete(Robot r) {
     }
-
         /**
          * Question 3.1 : Une méthode qui permet d'afficher la description de tout le cellule.
          */
@@ -44,4 +44,56 @@ public class Cellule {
             }
         }
 
+    /**
+     * Question 3.2
+     */
+    public void ajouter(Robot r){
+        Cellule current = this;
+        while(current.suivant != null){
+            current = current.suivant;
+        }
+        current = new Cellule(r);
     }
+
+    public String bandName(){
+        String res = "";
+        Cellule current = this;
+        while (current != null){
+            res+= this.rob.getNom();
+            current = current.suivant;
+        }
+        return res;
+    }
+    public String chante(){
+        this.rob.chante();
+        String res = "" + this.rob.getTexte();
+        for(int i=0; i<this.rob.getNom() - 'a'; i++){
+            res+= this.rob.getTexte();
+        }
+        return res;
+    }
+
+    public void chantez(){
+        Cellule actuel = this;
+        while (actuel != null){
+            chante();
+            actuel = actuel.suivant;
+        }
+    }
+
+    public Cellule couperAPartirDe(char nom){
+        Cellule actuel = this;
+        while (actuel.rob.getNom() != nom){
+            actuel = actuel.suivant;
+        }
+        return actuel;
+    }
+
+    public Cellule getSuivant(){
+        return this.suivant;
+    }
+
+    public void setSuivant(Cellule cellule){
+        this.suivant = cellule;
+    }
+}
