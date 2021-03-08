@@ -20,7 +20,29 @@ public class Groupe {
         this.chefDeFile.affiche();
     }
 
-    public void ajouteNouveau(){
+    public void ajouteNouveau(Robot robot){
+        if( this.chefDeFile == null){
+            this.chefDeFile = new Cellule(robot);
+            return;
+        }
+        this.chefDeFile.ajouter(robot);
+
+    }
+
+    public void bandName(){
+        this.chefDeFile.bandName();
+    }
+
+    public void chante(){
+        this.chefDeFile.chante();
+    }
+    public void chantez(){
+        this.chefDeFile.chantez();
+    }
+
+    public Groupe APartirDe(char nom){
+        this.chefDeFile.couperAPartirDe(nom);
+        Groupe groupe = new Groupe();
 
     }
 }
