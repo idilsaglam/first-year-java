@@ -25,7 +25,7 @@ public class Groupe {
             this.chefDeFile = new Cellule(robot);
             return;
         }
-        this.chefDeFile.ajouter(robot);
+        this.chefDeFile.ajouteNouveau(robot);
 
     }
 
@@ -36,6 +36,8 @@ public class Groupe {
     public void chante(){
         this.chefDeFile.chante();
     }
+
+    // Question 3.6
     public void chantez(){
         this.chefDeFile.chantez();
     }
@@ -43,6 +45,9 @@ public class Groupe {
     public Groupe APartirDe(char nom){
         this.chefDeFile.couperAPartirDe(nom);
         Groupe groupe = new Groupe();
+    }
+
+    public Groupe prendrePause(){
 
     }
 }
