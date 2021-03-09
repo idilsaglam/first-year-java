@@ -6,7 +6,7 @@ public class Cellule {
 
 
     /**
-     * Question 2.2 :
+     * Question 2.2:
      * Un constructeur de Cellule qui prend un argument de type Robot et un argument de type Cellule
      * @param rob est un Robot
      * @param suivant est un Cellule
@@ -26,26 +26,20 @@ public class Cellule {
         this(rob,null);
     }
 
-    /**
-     * Question 2.4 :
-     * Une méthode qui teste si le robot r a un nom correct et si oui le place en position d’être leader du groupe.
-     * L’ancien chef de file, s’il existait, est maintenant juste après lui.
-     */
-    //TODO:
-    public void prendreTete(Robot r) {
 
-    }
+
 
     /**
      * Question 3.1 : Une méthode qui permet d'afficher la description de tout le cellule.
      */
     public void affiche () {
-        System.out.println(this.rob.description());
-        if (this.suivant != null) {
-            this.suivant.affiche();
-        }else{
-            System.out.println("Groupe vide");
+        if (this.rob != null) {
+            System.out.println(this.rob.description());
         }
+        if (this.suivant == null) {
+            return;
+        }
+        this.suivant.affiche();
     }
 
     /**
@@ -57,7 +51,7 @@ public class Cellule {
         while(current.suivant != null){
             current = current.suivant;
         }
-        current = new Cellule(r);
+        current.setSuivant(new Cellule(r));
     }
 
     /**
@@ -67,8 +61,8 @@ public class Cellule {
     public int numerologie(){
         Cellule current = this;
         int somme = 0;
-        while (current.suivant!= null){
-            somme += (current.rob.getNom() - 'a');
+        while (current != null){
+            somme += (current.rob.getNum());
             current = current.suivant;
         }
         return (somme % 9) ;
@@ -89,29 +83,22 @@ public class Cellule {
     }
 
     /**
-     * Question 3.5
-     * @return une chaîne de caractère res qui est la concaténation de la chanson selon la valeur de leur noms.
+     * Méthode fait chanter tous les robots un par un
+     * @return le string
      */
-    public String chante(){
-        this.rob.chante();
-        String res = "" + this.rob.getTexte();
-        for(int i=0; i<this.rob.getNom() - 'a'; i++){
-            res+= this.rob.getTexte();
-        }
-        return res;
-    }
-
     public void chantez(){
         Cellule actuel = this;
         while (actuel != null){
-            chante();
+            if (actuel.rob != null) {
+                System.out.println(actuel.rob.chante());
+            }
             actuel = actuel.suivant;
         }
     }
     //TODO: Question 4.1
     public Cellule couperAPartirDe(char nom){
-        if(this.rob.getNom() == nom){
-            return new Cellule();
+        if (this.rob.getNom() == nom) {
+           return this;
         }
         Cellule premier = this;
         Cellule actuel = this;
@@ -125,7 +112,59 @@ public class Cellule {
         return this.suivant;
     }
 
+    public boolean besoinDePause() {
+        return this.rob.getEnergie() == 0;
+    }
+
+    /**
+     * Méthode permet d'ajouter la cellule c à la fin
+     * @param c la cellule à ajouter
+     */
+    public void ajouteCellule(Cellule c) {
+        Cellule current = this;
+        while(current.suivant != null) {
+            current = current.suivant;
+        }
+        current.suivant = c;
+    }
+
+    /**
+     * Méthode permet de réinitialiser la cellule suivante d'une cellule
+     * @param cellule c
+     */
     public void setSuivant(Cellule cellule){
         this.suivant = cellule;
+    }
+
+    /**
+     * Méthode permet d'enlever tous les cellules dont l'énergie 0
+     * @return les cellules à enlever
+     */
+    public Cellule prendrePause() {
+        Cellule result = null;
+        Cellule current = this;
+        while(current.suivant != null) {
+            if (current.suivant.besoinDePause()) {
+                if (result == null) {
+                    result = current;
+                } else {
+                    result.ajouteCellule(current);
+                }
+                current.suivant = current.suivant.suivant;
+            }
+            current = current.suivant;
+        }
+        return result;
+    }
+
+    /**
+     * Question 5.3
+     * @return effectif d'une cellule
+     */
+    public int effectif() {
+        if (this.suivant == null) {
+            return 1;
+        }
+        return 1 + this.suivant.effectif();
     }
 }
