@@ -20,7 +20,7 @@ public class Cellule {
      * Question 2.3 :
      * Un constructeur de Cellule qui prend seulement un argument de type Robot, et qui s’écrit
      * en faisant appel au constructeur précédent.
-     * @param rob
+     * @param rob est un robot qui a le type Robot
      */
     public Cellule(Robot rob){
         this(rob,null);
@@ -33,21 +33,26 @@ public class Cellule {
      */
     //TODO:
     public void prendreTete(Robot r) {
+
     }
-        /**
-         * Question 3.1 : Une méthode qui permet d'afficher la description de tout le cellule.
-         */
-        public void affiche () {
-            System.out.println(this.rob.description());
-            if (this.suivant != null) {
-                this.suivant.affiche();
-            }
-        }
 
     /**
-     * Question 3.2
+     * Question 3.1 : Une méthode qui permet d'afficher la description de tout le cellule.
      */
-    public void ajouter(Robot r){
+    public void affiche () {
+        System.out.println(this.rob.description());
+        if (this.suivant != null) {
+            this.suivant.affiche();
+        }else{
+            System.out.println("Groupe vide");
+        }
+    }
+
+    /**
+     * Question 3.2 : Écrivez une méthode ajouteNouveau qui ajoute un robot en fin de groupe,
+     * l’ajout n’a lieu que si le nom du robot est correct.
+     */
+    public void ajouteNouveau(Robot r){
         Cellule current = this;
         while(current.suivant != null){
             current = current.suivant;
@@ -55,6 +60,24 @@ public class Cellule {
         current = new Cellule(r);
     }
 
+    /**
+     * Question 3.3
+     * @return la somme des valeurs lettres de noms des robots, le tout modulo 9
+     */
+    public int numerologie(){
+        Cellule current = this;
+        int somme = 0;
+        while (current.suivant!= null){
+            somme += (current.rob.getNom() - 'a');
+            current = current.suivant;
+        }
+        return (somme % 9) ;
+    }
+
+    /**
+     * Question 3.4 :
+     * @return une chaîne de caractère res qui est la concaténation de tous les noms des robots pris dans l'ordre.
+     */
     public String bandName(){
         String res = "";
         Cellule current = this;
@@ -64,6 +87,11 @@ public class Cellule {
         }
         return res;
     }
+
+    /**
+     * Question 3.5
+     * @return une chaîne de caractère res qui est la concaténation de la chanson selon la valeur de leur noms.
+     */
     public String chante(){
         this.rob.chante();
         String res = "" + this.rob.getTexte();
@@ -80,13 +108,17 @@ public class Cellule {
             actuel = actuel.suivant;
         }
     }
-
+    //TODO: Question 4.1
     public Cellule couperAPartirDe(char nom){
+        if(this.rob.getNom() == nom){
+            return new Cellule();
+        }
+        Cellule premier = this;
         Cellule actuel = this;
-        while (actuel.rob.getNom() != nom){
+        while(actuel.suivant.rob.getNom() != nom){
             actuel = actuel.suivant;
         }
-        return actuel;
+        return premier;
     }
 
     public Cellule getSuivant(){
