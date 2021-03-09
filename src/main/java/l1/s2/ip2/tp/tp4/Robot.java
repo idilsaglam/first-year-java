@@ -36,7 +36,7 @@ public class Robot {
      * lettre de l’alphabet minuscule ou pas.
      * @return true si elle est une lettre de l'alphabet minuscule, false sinon.
      */
-    public boolean Correct(){
+    public boolean nomCorrect(){
         return(this.nom >= 'a' && this.nom <= 'z');
     }
 
@@ -61,14 +61,13 @@ public class Robot {
      * Comme l'attribut 'énergie' est privé, on ne peut pas y modifier dans les autres classes.
      * Pour pouvoir le modifier et garder son visibilité "private" en même temps, il faut que nous écrivons
      * le méthode 'setter'
-     * @return rien mais change la valeur de énergie actuel avec un argument donné en paramètre.
      */
     public void setEnergie(int energie){
         this.energie = energie;
     }
 
     /**
-     * Question 3.5
+     * Question 3.5 : Après avoir chanté il perdra 10 points d’énergie (sans pouvoir passer en dessous de zéro).
      */
     public void chante(){
         if(this.energie - 10 >= 0){
