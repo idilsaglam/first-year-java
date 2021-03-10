@@ -13,4 +13,21 @@ public class Entreprise {
         this.premier.affiche();
     }
 
+    public void ajout(Employe emp){
+        if(premier.appartient(emp.getNom())){
+            return;
+        }
+        Cellule root = new Cellule(emp);
+        root.setSuivant(premier);
+        premier = root;
+    }
+
+    //TODO: demission
+
+
+
+
+
+
+
 }
