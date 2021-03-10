@@ -14,6 +14,13 @@ public class Cellule {
         this.suivant = suiv;
     }
 
+    public void setSuivant(Cellule c){
+        this.suivant = c;
+    }
+
+    public Cellule getSuivant(){
+        return this.suivant;
+    }
     //pass recursive
     public void affiche2(){
         Cellule actuel = this;
@@ -50,13 +57,25 @@ public class Cellule {
         }
         actuel = actuel.suivant;
         appartient(n);
+        return false;
     }
 
-   public void ajout(Employe emp){
-        if(appartient(emp.getNom())){
-            return;
+    public boolean augmente(String nom, int montant){
+        if(!appartient(nom)) {
+            return false;
         }
+        Cellule actuel = this;
+        while (!actuel.emp.getNom().equals(nom)){
+            actuel = actuel.suivant;
+        }
+        actuel.emp.setSalarie(actuel.emp.getSalarie()+montant);
+        return true;
+    }
 
-   }
+    public Entreprise choixSalaire(int min,int max){
+        Cellule actuel = this;
+    }
+
+
 
 }
