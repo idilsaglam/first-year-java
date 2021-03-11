@@ -65,6 +65,16 @@ public class Cellule {
         return false;
     }
 
+    public boolean appartientRec(String n){
+        if(this.emp.getNom().equals(n)){
+            return true;
+        }
+        while (this.suivant != null){
+            this.suivant.appartientRec(n);
+        }
+
+    }
+
     /**
      * Une méthode qui retire l’employé de nom n dans la liste.
      * (et on suppose encore qu’il n’existe pas deux employés ayant le même nom dans la liste)
@@ -79,6 +89,17 @@ public class Cellule {
             actuel = actuel.suivant;
         }
         actuel.suivant = actuel.suivant.suivant;
+    }
+
+    public void demissionRec(String n){
+        if(!appartient(n)){
+            return;
+        }
+        if(this.suivant !=null && this.suivant.emp.getNom().equals(n)){
+            this.suivant = this.suivant.suivant;
+            return;
+        }
+        this.suivant.demissionRec(n);
     }
 
     /**
@@ -100,6 +121,18 @@ public class Cellule {
         return true;
     }
 
+    public boolean augmenteRecursive(String nom, int montant){
+        if(!appartient(nom)){
+            return false;
+        }
+        if(this.emp.getNom().equals(nom)){
+            this.emp.setSalarie(this.emp.getSalarie()+montant);
+            return true;
+        }
+        this.suivant.augmenteRecursive(nom,montant);
+        return false;
+    }
+
     /**
      * Question 2.1
      * Une méthode qui renvoie la partie de l’entreprise constituée des Employes dont le salaire est compris
@@ -112,7 +145,7 @@ public class Cellule {
     //TODO:
     public Entreprise choixSalaire(int min,int max){
         Cellule actuel = this;
-    $}
+    }
 
     /**
      * Question 3.1
@@ -127,6 +160,14 @@ public class Cellule {
             }
             actuel = actuel.suivant;
         }
+        return true;
+    }
+
+    public boolean croissanteRecursive(){
+        if(this.suivant != null && this.emp.getSalarie() > this.suivant.emp.getSalarie()){
+            return false;
+        }
+        this.suivant.croissanteRecursive();
         return true;
     }
 
