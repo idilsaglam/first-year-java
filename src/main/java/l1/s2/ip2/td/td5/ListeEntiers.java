@@ -51,5 +51,33 @@ public class ListeEntiers {
     }
 
 
+    /**
+     * Question 2.6 :
+     * Une méthode qui teste l’égalité de deux listes simplement chaînées
+     * @param arg est un type ListeEntiers
+     * @return true si les deux listes sont égaux sinon false.
+     */
+    //itérative
+    public boolean egal(ListeEntiers arg){
+        if(this.getPremier() != arg.getPremier()){
+            return false;
+        }
+        Cellule listeActuel = this.premier;
+        Cellule argListe = arg.premier;
+
+        while (listeActuel.getValeur() == argListe.getValeur()){
+            listeActuel = listeActuel.getSuivante();
+            argListe = argListe.getSuivante();
+        }
+        return false;
+    }
+
+    //recursive
+    public boolean egalRec(ListeEntiers arg){
+
+
+    }
+
+
 
 }
