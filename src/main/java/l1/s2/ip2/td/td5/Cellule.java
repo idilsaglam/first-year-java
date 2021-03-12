@@ -70,9 +70,10 @@ public class Cellule {
     }
     //Récursive
     public int tailleRecursive(){
-        int res = 0;
-        return this.suivante.taille() + 1;
-
+        if(this.suivante !=null) {
+            return this.suivante.taille() + 1;
+        }
+        return 0;
     }
 
     /**
@@ -91,8 +92,11 @@ public class Cellule {
         return somme;
     }
     //Récursive:
-    public int sommeRec(){
-        //TODO:
+    public int sommeRec() {
+        if (this.suivante != null) {
+            return this.suivante.sommeRec() + this.suivante.getValeur();
+        }
+        return 0;
     }
 
     /**
@@ -115,18 +119,16 @@ public class Cellule {
     }
 
     public boolean supprimerEnIRecursive(int i){
-        //TODO:
+        if(this.suivante.getValeur()==i){
+            this.suivante = this.suivante.suivante;
+            return true;
+        }
+        if(this.suivante != null) {
+            this.suivante.supprimerEnIRecursive(i);
+        }
+        return false;
     }
 
-    /**
-     * Question 2.6 :
-     * Une méthode qui teste l’égalité de deux listes simplement chaînées
-     * @param arg est un type ListeEntiers
-     * @return true si les deux listes sont égaux sinon false.
-     */
-    public boolean egal(ListeEntiers arg){
-
-    }
 
 
 
