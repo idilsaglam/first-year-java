@@ -4,11 +4,21 @@ public class Entreprise {
     private String nom;
     private Cellule premier;
 
+    public Entreprise(){
+        this.premier = null;
+        this.nom = null;
+    }
     public Entreprise(String nom, Cellule premier){
         this.nom = nom;
         this.premier = premier;
     }
 
+    public String getNom(){
+        return this.nom;
+    }
+    public void setNom(String s){
+        this.nom = s;
+    }
     public Cellule getPremier(){
         return this.premier;
     }
@@ -79,6 +89,13 @@ public class Entreprise {
         return false;
     }
 
+    public Entreprise choixSalaire(int min,int max){
+        Cellule first = null;
+        if (this.premier != null) {
+            first = this.premier.choixSalaire(min, max);
+        }
+        return new Entreprise(this.getNom(), first);
+    }
     /**
      * Question 3.3
      * @param ent
