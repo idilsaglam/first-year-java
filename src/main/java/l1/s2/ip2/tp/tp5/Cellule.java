@@ -158,8 +158,33 @@ public class Cellule {
      */
 
     //TODO:
-    public Entreprise choixSalaire(int min,int max){
-        Cellule actuel = this;
+    public Cellule choixSalaire(int min,int max){
+        Cellule minExtremum = null, maxExtremum = null, courant = (Cellule) this.clone();
+        while(this.getSuivant() != null && (minExtremum == null || maxExtremum == null)) {
+            if (minExtremum == null) {
+                // Si on n'a pas encore trouvé l'extremum minimum
+                if (courant.getEmp().getSalarie() >= min) {
+                    minExtremum = courant;
+                }
+                if (maxExtremum == null) {
+                    if (courant.getSuivant().getEmp().getSalarie() > max) {
+                        maxExtremum = courant;
+                        maxExtremum.setSuivant(null);
+                    }
+                }
+                courant = courant.getSuivant();
+            }
+        }
+        if (minExtremum == null) {
+            if (courant.getEmp().getSalarie() >= min) {
+               return courant;
+            }
+            return null;
+        }
+        if (maxExtremum == null) {
+            maxExtremum = courant;
+        }
+        return minExtremum;
     }
 
     /**
@@ -191,7 +216,7 @@ public class Cellule {
 
     //Une autre méthode de le faire
     public boolean croissanteRecursive2(){
-        return (this.emp.getSalarie() >= this.suivant.emp.getSalarie()) || (this.suivant != null && this.suivant.croissanteRecursive())
+        return (this.emp.getSalarie() >= this.suivant.emp.getSalarie()) || (this.suivant != null && this.suivant.croissanteRecursive());
     }
 
 
@@ -250,7 +275,17 @@ public class Cellule {
     }
 
 
-
-
-
+    @Override
+    protected Object clone() {
+        if (this.getSuivant() == null) {
+            return new Cellule(
+                    this.getEmp(),
+                    null
+            );
+        }
+        return new Cellule(
+            this.getEmp(),
+            (Cellule) this.getSuivant().clone()
+        );
+    }
 }
