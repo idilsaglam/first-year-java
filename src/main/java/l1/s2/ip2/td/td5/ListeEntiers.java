@@ -50,6 +50,16 @@ public class ListeEntiers {
         this.premier.description();
     }
 
+    //get the size of the list
+    public int taille(){
+        int taille = 0;
+        Cellule act = this.premier;
+        while(act != null){
+            taille++;
+            act = act.getSuivante();
+        }
+        return taille;
+    }
 
     /**
      * Question 2.6 :
@@ -59,23 +69,49 @@ public class ListeEntiers {
      */
     //itérative
     public boolean egal(ListeEntiers arg){
-        if(this.getPremier() != arg.getPremier()){
+        if(arg == null){
             return false;
         }
-        Cellule listeActuel = this.premier;
-        Cellule argListe = arg.premier;
+       Cellule actListe = this.getPremier();
+       Cellule actArgliste = arg.getPremier();
 
-        while (listeActuel.getValeur() == argListe.getValeur()){
-            listeActuel = listeActuel.getSuivante();
-            argListe = argListe.getSuivante();
-        }
-        return false;
+       while (actListe != null && actArgliste != null){
+           //if(!actListe.getValeur() != actArgListe.getValeur())
+           if(!actListe.equals(actArgliste)){
+               return false;
+           }
+           actListe = actListe.getSuivante();
+           actArgliste = actArgliste.getSuivante();
+       }
+
+       return  (actListe==null && actArgliste==null);
     }
 
     //recursive
     public boolean egalRec(ListeEntiers arg){
+        Cellule actArgListe = arg.getPremier();
 
+    }
 
+    public String descriptionRec(){
+        if(this.premier == null){
+            return "()";
+        }
+        return "(" + this.getPremier().descriptionRec();
+    }
+
+    public int supprimer_k_premieres_occRec(int k, int v){
+        if (this.premier == null ) {
+            return 0;
+        }
+        if (k == 0) {
+            return 0;
+        }
+        if (this.premier.getValeur() == v) {
+            this.premier = this.premier.getSuivante();
+            return 1 + this.supprimer_k_premieres_occRec(k-1, v);
+        }
+        return this.premier.supprimer_k_premieres_occRec(k, v);
     }
 
 
