@@ -27,11 +27,14 @@ public class Entreprise {
      * Question 1.3: Méthode récursive qui décrit tout les employés.
      */
     public void affiche(){
+        if(this.premier == null){
+            return;
+        }
         this.premier.affiche();
     }
 
     public void ajout(Employe emp){
-        if(premier.appartient(emp.getNom())){
+        if(this.premier != null && this.premier.appartient(emp.getNom())){
             return;
         }
         Cellule root = new Cellule(emp);
@@ -57,9 +60,14 @@ public class Entreprise {
      * @param n une chaîne de caractère qui signifie le nom de l'employé.
      */
     public void demission(String n){
-        if(this.premier != null){
-            this.premier.demission(n);
+        if(this.premier == null){
+            return;
         }
+        if(this.premier.getEmp().getNom().equals(n)){
+           this.premier = this.premier.getSuivant();
+           return;
+        }
+        this.premier.demission(n);
     }
 
     /**
@@ -71,10 +79,10 @@ public class Entreprise {
      * @return false si un des conditions n'est pas respectés. true sinon.
      */
     public boolean augmente(String nom, int montant){
-        if(this.premier != null){
-            return this.premier.augmente(nom,montant);
+        if(this.premier == null){
+            return false;
         }
-        return false;
+        return this.premier.augmente(nom,montant);
     }
 
     /**
@@ -96,10 +104,40 @@ public class Entreprise {
         }
         return new Entreprise(this.getNom(), first);
     }
+
+    public void ajoutEmp(Employe e){
+
+        if(this.premier == null || this.premier.getEmp().getSalarie()>e.getSalarie()){
+            Cellule a = this.premier;
+            this.premier = new Cellule(e);
+            this.premier.setSuivant(a);
+            return;
+        }
+
+        this.premier.ajoutEmp(e);
+    }
+
     /**
      * Question 3.3
      * @param ent
      */
+    public void acquisition_Version1(Entreprise ent) {
+        if(ent.premier == null){
+            return;
+        }
+        Cellule act = this.premier;
+        while (act != null){
+            ent.ajoutEmp(act.getEmp());
+            act = act.getSuivant();
+        }
+
+    }
+
+    public void augmente3(String nom, int montant){
+        
+    }
+
+    // Une autre facon de le faire
     public void acquisition_Version(Entreprise ent){
         if(this.premier == null){
             this.premier = ent.getPremier();
