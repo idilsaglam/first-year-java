@@ -20,4 +20,9 @@ public class Employe {
     public void setSalarie(int n){
         this.salarie = n;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Nom de l'employé(e) : %s , salaire : %d", this.getNom(), this.getSalarie());
+    }
 }
