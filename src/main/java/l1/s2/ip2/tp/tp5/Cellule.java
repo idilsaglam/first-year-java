@@ -27,15 +27,12 @@ public class Cellule {
     }
 
     //iterative.
-    public void affiche2(){
+    public void afficheIt(){
         Cellule actuel = this;
         while (actuel != null) {
-            if(actuel.emp == null){
-                continue;
+            if(actuel.emp != null) {
+               System.out.println(actuel.emp);
             }
-            System.out.printf(
-                    "Nom de l'employé(e) : %s , salaire : %d", actuel.emp.getNom(), actuel.emp.getSalarie()
-            );
             actuel = actuel.suivant;
         }
     }
@@ -44,9 +41,9 @@ public class Cellule {
      * Question 1.3: Méthode récursive qui décrit tout les employés.
      */
     public void affiche(){
-        System.out.printf(
-                "Nom de l'employé(e) : %s , salaire : %d", this.emp.getNom(), this.emp.getSalarie()
-        );
+        if(this.emp != null) {
+            System.out.println(this.emp);
+        }
         if(this.suivant == null){
             return;
         }
@@ -61,7 +58,7 @@ public class Cellule {
     public boolean appartient(String n){
         Cellule actuel = this;
         while (actuel != null){
-            if(actuel.emp.getNom().equals(n)){
+            if(actuel.emp != null && actuel.emp.getNom().equals(n)){
                 return true;
             }
             actuel = actuel.suivant;
@@ -71,7 +68,7 @@ public class Cellule {
 
     //récursive
     public boolean appartientRec(String n){
-        if(this.emp.getNom().equals(n)){
+        if(this.emp != null && this.emp.getNom().equals(n)){
             return true;
         }
         if(this.suivant == null){
@@ -83,7 +80,7 @@ public class Cellule {
 
     // récursive méthode 2
     public boolean appartientRec2(String n){
-        return this.emp.getNom().equals(n) || (this.suivant != null && this.suivant.appartientRec2(n));
+        return (this.emp != null && this.emp.getNom().equals(n)) || (this.suivant != null && this.suivant.appartientRec2(n));
     }
 
     /**
@@ -95,7 +92,7 @@ public class Cellule {
     public void demission(String n){
         Cellule actuel = this;
         while (actuel != null){
-            if(actuel.getSuivant().getEmp().getNom().equals(n)){
+            if(actuel.getSuivant() != null && actuel.getSuivant().getEmp() != null && actuel.getSuivant().getEmp().getNom().equals(n)){
                 actuel.setSuivant(actuel.getSuivant().getSuivant());
                 return;
             }
@@ -106,12 +103,13 @@ public class Cellule {
     //récursive
     public void demissionRec(String n){
         // Cas d'arrêt 1
-        if(this.getSuivant().getEmp().getNom().equals(n)){
-            this.setSuivant(this.getSuivant().getSuivant());
+        if (this.getSuivant() == null) {
             return;
         }
+
         // Cas d'arrêt 2
-        if (this.getSuivant() == null) {
+        if(this.getSuivant().getEmp() != null && this.getSuivant().getEmp().getNom().equals(n)){
+            this.setSuivant(this.getSuivant().getSuivant());
             return;
         }
         this.getSuivant().demissionRec(n);
@@ -127,7 +125,7 @@ public class Cellule {
     public boolean augmente(String nom, int montant){
         Cellule actuel = this;
         while (actuel != null){
-            if(actuel.getEmp().getNom().equals(nom)){
+            if(actuel.getEmp() != null && actuel.getEmp().getNom().equals(nom)){
                 actuel.emp.setSalarie(actuel.emp.getSalarie()+montant);
                 return true;
             }
@@ -137,7 +135,7 @@ public class Cellule {
     }
 
     public boolean augmenteRecursive(String nom, int montant){
-        if(this.emp.getNom().equals(nom)){
+        if(this.emp != null && this.emp.getNom().equals(nom)){
             this.emp.setSalarie(this.emp.getSalarie()+montant);
             return true;
         }
@@ -160,29 +158,26 @@ public class Cellule {
     //TODO:
     public Cellule choixSalaire(int min,int max){
         Cellule minExtremum = null, maxExtremum = null, courant = (Cellule) this.clone();
-        while(this.getSuivant() != null && (minExtremum == null || maxExtremum == null)) {
+        while(courant.getSuivant() != null && (minExtremum == null || maxExtremum == null)) {
             if (minExtremum == null) {
                 // Si on n'a pas encore trouvé l'extremum minimum
-                if (courant.getEmp().getSalarie() >= min) {
+                if (courant.getEmp() != null && courant.getEmp().getSalarie() >= min) {
                     minExtremum = courant;
                 }
-                if (maxExtremum == null) {
-                    if (courant.getSuivant().getEmp().getSalarie() > max) {
-                        maxExtremum = courant;
-                        maxExtremum.setSuivant(null);
-                    }
-                }
-                courant = courant.getSuivant();
             }
+            if (maxExtremum == null) {
+                if (courant.getSuivant().getEmp() != null && courant.getSuivant().getEmp().getSalarie() > max) {
+                    maxExtremum = courant;
+                    maxExtremum.setSuivant(null);
+                }
+            }
+            courant = courant.getSuivant();
         }
         if (minExtremum == null) {
             if (courant.getEmp().getSalarie() >= min) {
                return courant;
             }
             return null;
-        }
-        if (maxExtremum == null) {
-            maxExtremum = courant;
         }
         return minExtremum;
     }
@@ -196,7 +191,7 @@ public class Cellule {
     public boolean croissante(){
         Cellule actuel = this;
         while(actuel.getSuivant() != null){
-            if(actuel.emp.getSalarie() >= actuel.suivant.emp.getSalarie()){
+            if(actuel.getEmp() != null && actuel.getSuivant().getEmp() != null && actuel.emp.getSalarie() >= actuel.suivant.emp.getSalarie()){
                 return false;
             }
             actuel = actuel.suivant;
@@ -205,10 +200,10 @@ public class Cellule {
     }
     //récursive
     public boolean croissanteRecursive(){
-        if(this.emp.getSalarie() >= this.suivant.emp.getSalarie()){
-            return false;
-        }
         if(this.suivant == null){
+            return true;
+        }
+        if(this.emp.getSalarie() >= this.suivant.emp.getSalarie()){
             return false;
         }
        return this.suivant.croissanteRecursive();
@@ -216,7 +211,7 @@ public class Cellule {
 
     //Une autre méthode de le faire
     public boolean croissanteRecursive2(){
-        return (this.emp.getSalarie() >= this.suivant.emp.getSalarie()) || (this.suivant != null && this.suivant.croissanteRecursive());
+        return (this.emp != null && this.suivant.emp != null && this.emp.getSalarie() >= this.suivant.emp.getSalarie()) || (this.suivant != null && this.suivant.croissanteRecursive());
     }
 
 
@@ -258,20 +253,35 @@ public class Cellule {
      * nom est ou n’est pas déjà présent)
      * @param emp qui est un employé que nous voulons ajouter.
      */
-    public void ajoute2(Employe emp){
-        if(!appartient(emp.getNom())){
-            //TODO: basa ya da sona ekle
-        }
-        Cellule actuel = this;
-        while(actuel!=null){
-            if(emp.getSalarie() >= actuel.emp.getSalarie() && emp.getSalarie() < actuel.suivant.emp.getSalarie()){
-                Cellule as = actuel.suivant;
-                actuel.suivant = new Cellule(emp);
-                actuel.suivant.suivant = as;
-                return;
+    public void ajoutEmp(Employe emp){
+        Cellule act = this;
+        while (act.suivant != null){
+            if( act.suivant.getEmp() != null && act.suivant.getEmp().getSalarie() > emp.getSalarie()){
+              Cellule tmp = act.suivant;
+              act.setSuivant(new Cellule(emp));
+              act.getSuivant().setSuivant(tmp);
+              return;
             }
-            actuel = actuel.suivant;
+            act = act.suivant;
         }
+        act.setSuivant(new Cellule(emp));
+    }
+
+    public void recAjoutEmp(Employe emp){
+        // cas d'arrêt.
+        if(this.suivant == null){
+            this.setSuivant(new Cellule(emp));
+            return;
+        }
+        if(this.suivant.getEmp() != null && this.suivant.getEmp().getSalarie() > emp.getSalarie()){
+            Cellule tmp = this.suivant;
+            this.setSuivant(new Cellule(emp));
+            this.getSuivant().setSuivant(tmp);
+            return;
+        }
+
+        this.suivant.recAjoutEmp(emp);
+
     }
 
 
