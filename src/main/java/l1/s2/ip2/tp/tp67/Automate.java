@@ -1,8 +1,8 @@
 package l1.s2.ip2.tp.tp67;
 
 public class Automate {
-    public Cellule fin;
-    public Cellule debut;
+    private Cellule fin;
+    private Cellule debut;
 
     /*
      * Question 1.2
@@ -14,6 +14,19 @@ public class Automate {
         Cellule tmp =this.debut;
         this.debut = new Cellule(b);
         this.debut.setSuivante(tmp);
+    }
+
+    public Cellule getFin(){
+        return this.fin;
+    }
+    public Cellule getDebut(){
+        return this.debut;
+    }
+    public void setFin(Cellule fin){
+        this.fin = fin;
+    }
+    public void setDebut(Cellule debut){
+        this.debut = debut;
     }
 
     public void initialisation(){
@@ -49,6 +62,28 @@ public class Automate {
         if(this.debut == null){
             return;
         }
-        this.changeStatus();
+        this.debut.changeStatus();
     }
+
+
+    public void prochaineEtape(){
+        if(this.debut == null){
+            return;
+        }
+        if(this.debut.getSuivante() == null){
+            this.debut.setProchainEtat(false);
+        }
+        this.debut.setProchainEtat(this.debut.getSuivante().getNoir());
+        this.fin.setProchainEtat(this.fin.getPrecedente().getNoir());
+        this.debut.prochaineEtape();
+    }
+
+    public void uneEtape(){
+        if(this.debut == null) {
+            return;
+        }
+        this.debut.prochaineEtape();
+        this.debut.miseAJour();
+    }
+
 }
