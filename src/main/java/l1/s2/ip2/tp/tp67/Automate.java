@@ -29,6 +29,21 @@ public class Automate {
         this.debut = debut;
     }
 
+    public Automate(String str){
+        Cellule res = new Cellule(true);
+        if(str.charAt(0) == '-'){
+            res.setNoire(false);
+        }
+        for(int i=1; i<str.length(); i++){
+            if(str.charAt(i)=='#'){
+                res.ajouteALaFin(new Cellule(true));
+                continue;
+            }
+            res.ajouteALaFin(new Cellule(false));
+
+        }
+    }
+
     public void initialisation(){
         Cellule a = new Cellule(true);
         Cellule b = new Cellule(true);
@@ -84,6 +99,13 @@ public class Automate {
         }
         this.debut.prochaineEtape();
         this.debut.miseAJour();
+    }
+
+    public void nEtapes(int n){
+        if(this.debut == null){
+            return;
+        }
+        this.debut.nEtapes(n);
     }
 
 }
