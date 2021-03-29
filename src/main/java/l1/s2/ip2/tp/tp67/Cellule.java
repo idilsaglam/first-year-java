@@ -112,5 +112,14 @@ public class Cellule {
         }
     }
 
+    public void nEtapes(int n) {
+        Cellule act = this;
+        for(int i=0; i<n; i++){
+            afficher();
+            act = act.suivante;
+        }
+    }
+
+
 
 }
