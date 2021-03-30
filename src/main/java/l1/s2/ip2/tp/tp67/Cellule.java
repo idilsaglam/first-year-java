@@ -1,125 +1,124 @@
 package l1.s2.ip2.tp.tp67;
 
-import javax.swing.*;
-import java.awt.image.CropImageFilter;
-
 public class Cellule {
     private Cellule precedente;
     private Cellule suivante;
     private boolean noire;
     private boolean prochainEtat;
 
-    public boolean getProchainEtat(){
-        return this.prochainEtat;
+
+    /**
+     * Question 1.b: Les accesseurs
+     * Comme l'attribut 'precedente' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour y accéder en gardant sa visibilité (private), nous devons écrire les méthodes "getters"
+     * @return La cellule precedent.
+     */
+    public Cellule getPrecedente(){
+        return this.precedente;
     }
+
+    /**
+     * Comme l'attribut 'suivante' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour y accéder en gardant sa visibilité (private), nous devons écrire les méthodes "getters"
+     * @return La cellule suivante.
+     */
+    public Cellule getSuivante(){
+        return this.suivante;
+    }
+
+    /**
+     * Comme l'attribut 'precedente' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour changer sa valeur en gardant sa visibilité (private), nous devons écrire les méthodes "setters"
+     * @param cellule Cellule que nous voulons faire precedent.
+     */
+    public void setPrecedente(Cellule  cellule){
+        this.precedente = cellule;
+    }
+
+    /**
+     * Comme l'attribut 'suivante' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour changer sa valeur en gardant sa visibilité (private), nous devons écrire les méthodes "setters"
+     * @param cellule Cellule que nous voulons faire la suivante Cellule.
+     */
+    public void setSuivante(Cellule cellule){
+        this.suivante = cellule;
+        cellule.precedente=this;
+    }
+
+    public void setNoire(boolean noire){
+        this.noire = noire;
+    }
+    public boolean getNoire(){
+        return this.noire;
+    }
+
+    /**
+     * Question 2.2
+     *  Comme l'attribut 'prochainEtat' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     *  Pour changer sa valeur en gardant sa visibilité (private), nous devons écrire la méthode "setter"
+     * @param etat true si nous voulons changer l'état avec noir, false sinon.
+     */
     public void setProchainEtat(boolean etat){
         this.prochainEtat = etat;
     }
 
     /**
-     * Question 1b: Les accesseurs
+     * Question 2.2
+     * Comme l'attribut 'prochainEtat' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour y accéder en gardant sa visibilité (private), nous devons écrire la méthode "getter"
+     * @return true si la valeyr de l'attribut 'prochainEtat' est true, sinon false
      */
-    public Cellule getPrecedente(){
-        return this.precedente;
-    }
-    public Cellule getSuivante(){
-        return this.suivante;
-    }
-    public boolean getNoir(){
-        return this.noire;
-    }
-    public void setPrecedente(Cellule precedente){
-        this.precedente = precedente;
-    }
-    public void setSuivante(Cellule suivante){
-        this.suivante = suivante;
-    }
-    public void setNoire(boolean noire){
-        this.noire = noire;
+    public boolean getProchainEtat(){
+        return this.prochainEtat;
     }
 
     /**
-     * Question 1c: constructeur
-     * @param noire true si le Cellule est noir, sinon false
+     * Question 1c
+     * Un constructeur qui initialise l’attribut noire avec l’argument (et les deux autres attributs à null)
+     * @param noire true si la Cellule est noir, sinon false
      */
     public Cellule(boolean noire){
         this.noire = noire;
-        this.suivante = null;
         this.precedente = null;
+        this.suivante = null;
         this.prochainEtat = false;
     }
 
     /**
-     * Question 1d: qui imprime (sans retour à la ligne) un dièse # ou un tiret - selon que noire est vraie ou fausse.
+     * Question 1d
+     * Une méthode qui imprime (sans retour à la ligne) un dièse # ou un tiret - selon que noire est vraie ou fausse.
      */
     public void afficher(){
-        if(this.noire){
-            System.out.print("#");
-        }else{
-            System.out.print("-");
-        }
-    }
-
-    public void ajouteALaFin(Cellule cellule){
         Cellule act = this;
-        while(act.getSuivante() != null){
+        while (act!=null){
+            if(act.noire){
+                //Pour chaque cellule noir, nous allons afficher #
+                System.out.print("#");
+                act = act.suivante;
+                continue;
+            }
+            //Pour chaque cellule blanche nous allons afficher un tiret.
+            System.out.print('-');
             act = act.suivante;
         }
-        act.setSuivante(cellule);
-    }
-
-    public Cellule changeStatus(){
-        Cellule res = new Cellule(true);
-        if (this.getSuivante() == null) {
-            return new Cellule(false);
-        }
-       if(this.getPrecedente() == null){
-           res.setNoire(this.getSuivante().getNoir());
-       }
-       Cellule act = this.suivante;
-       while (act.suivante != null){
-           /*if(act.getPrecedente().getNoir() && act.getSuivante().getNoir() ||
-                   (!act.getPrecedente().getNoir()) && (!act.getSuivante().getNoir())){
-               res.ajouteALaFin((new Cellule(false)));
-               act = act.suivante;
-               continue;
-           }
-           res.ajouteALaFin(new Cellule(true));*/
-           res.ajouteALaFin(new Cellule(
-                   act.getPrecedente().getNoir() != act.getSuivante().getNoir()
-           ));
-           act = act.suivante;
-       }
-       res.ajouteALaFin((new Cellule (this.getPrecedente().getNoir())));
-       return res;
-
     }
 
     public void prochaineEtape(){
-        Cellule act = this.suivante;
-        while (act.suivante != null){
-            this.setProchainEtat(act.getPrecedente().getNoir() != act.getSuivante().getNoir());
-            act = act.suivante;
-        }
-
-    }
-
-    public void miseAJour(){
         Cellule act = this;
-        while (act != null){
-            act.setNoire(act.getProchainEtat());
-            act = act.suivante;
+        if(act != null){
+            if(act.suivante != null && act.suivante.suivante != null) {
+                if (act.getNoire() && act.suivante.getNoire() && act.suivante.suivante.getNoire()) {
+                    act.suivante.setProchainEtat(false);
+                } else {
+                    act.suivante.setProchainEtat(true);
+                }
+                act = act.suivante;
+            }
+            if(act.suivante != null && act.suivante.suivante == null){
+
+            }
         }
     }
-
-    public void nEtapes(int n) {
-        Cellule act = this;
-        for(int i=0; i<n; i++){
-            afficher();
-            act = act.suivante;
-        }
-    }
-
 
 
 }
