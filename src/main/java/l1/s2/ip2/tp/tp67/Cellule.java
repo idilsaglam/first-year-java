@@ -103,21 +103,26 @@ public class Cellule {
         }
     }
 
+    /**
+     * Question 2.3
+     * Une méthode qui met prochainEtat à true si la cellule sera noire à l’instant suivant (
+     * et prochainEtat à false si elle sera blanche) en suivant la règle de l’unanimité.
+     */
     public void prochaineEtape(){
-        Cellule act = this;
-        if(act != null){
-            if(act.suivante != null && act.suivante.suivante != null) {
-                if (act.getNoire() && act.suivante.getNoire() && act.suivante.suivante.getNoire()) {
-                    act.suivante.setProchainEtat(false);
-                } else {
-                    act.suivante.setProchainEtat(true);
-                }
-                act = act.suivante;
-            }
-            if(act.suivante != null && act.suivante.suivante == null){
-
-            }
+        boolean unanimite = false;
+        if(this.precedente != null){
+            unanimite = this.getPrecedente().getNoire();
         }
+        unanimite = (unanimite==this.getNoire());
+        if(!unanimite){
+            this.prochainEtat = true;
+            return;
+        }
+        unanimite = !this.getNoire();
+        if(this.getSuivante() != null){
+            unanimite = this.getNoire()==this.getSuivante().getNoire();
+        }
+        this.prochainEtat = !unanimite;
     }
 
 
