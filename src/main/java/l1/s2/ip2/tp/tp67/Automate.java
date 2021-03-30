@@ -93,13 +93,6 @@ public class Automate {
         this.debut.afficher();
     }
 
-    /**
-     * Question 2.3:
-     * Une méthode qui met prochainEtat à true si la cellule sera noire à l’instant suivant
-     * (et prochainEtat à false si elle sera blanche) en suivant la règle de l’unanimité.
-     */
-    public void prochaineEtape(){
-        de
-    }
+
 
 }
