@@ -6,12 +6,23 @@ public class Cellule {
     private boolean noire;
     private boolean prochainEtat;
 
+    /**
+     * Question 1c
+     * Un constructeur qui initialise l’attribut noire avec l’argument (et les deux autres attributs à null)
+     * @param noire true si la Cellule est noir, sinon false
+     */
+    public Cellule(boolean noire) {
+        this.noire = noire;
+        this.precedente = null;
+        this.suivante = null;
+        this.prochainEtat = false;
+    }
 
     /**
      * Question 1.b: Les accesseurs
      * Comme l'attribut 'precedente' est privé, nous ne pouvons pas y accéder depuis une autre class.
-     * Pour y accéder en gardant sa visibilité (private), nous devons écrire les méthodes "getters"
-     * @return La cellule precedent.
+     * Pour y accéder en gardant sa visibilité privée (private), nous devons écrire les méthodes "getters"
+     * @return La cellule précedente.
      */
     public Cellule getPrecedente(){
         return this.precedente;
@@ -19,11 +30,24 @@ public class Cellule {
 
     /**
      * Comme l'attribut 'suivante' est privé, nous ne pouvons pas y accéder depuis une autre class.
-     * Pour y accéder en gardant sa visibilité (private), nous devons écrire les méthodes "getters"
+     * Pour y accéder en gardant sa visibilité privée (private), nous devons écrire les méthodes "getters"
      * @return La cellule suivante.
      */
     public Cellule getSuivante(){
         return this.suivante;
+    }
+    public boolean getNoire(){
+        return this.noire;
+    }
+
+    /**
+     * Question 2.2
+     * Comme l'attribut 'prochainEtat' est privé, nous ne pouvons pas y accéder depuis une autre class.
+     * Pour y accéder en gardant sa visibilité (private), nous devons écrire la méthode "getter"
+     * @return true si la valeyr de l'attribut 'prochainEtat' est true, sinon false
+     */
+    public boolean getProchainEtat(){
+        return this.prochainEtat;
     }
 
     /**
@@ -48,9 +72,6 @@ public class Cellule {
     public void setNoire(boolean noire){
         this.noire = noire;
     }
-    public boolean getNoire(){
-        return this.noire;
-    }
 
     /**
      * Question 2.2
@@ -60,28 +81,6 @@ public class Cellule {
      */
     public void setProchainEtat(boolean etat){
         this.prochainEtat = etat;
-    }
-
-    /**
-     * Question 2.2
-     * Comme l'attribut 'prochainEtat' est privé, nous ne pouvons pas y accéder depuis une autre class.
-     * Pour y accéder en gardant sa visibilité (private), nous devons écrire la méthode "getter"
-     * @return true si la valeyr de l'attribut 'prochainEtat' est true, sinon false
-     */
-    public boolean getProchainEtat(){
-        return this.prochainEtat;
-    }
-
-    /**
-     * Question 1c
-     * Un constructeur qui initialise l’attribut noire avec l’argument (et les deux autres attributs à null)
-     * @param noire true si la Cellule est noir, sinon false
-     */
-    public Cellule(boolean noire){
-        this.noire = noire;
-        this.precedente = null;
-        this.suivante = null;
-        this.prochainEtat = false;
     }
 
     /**
