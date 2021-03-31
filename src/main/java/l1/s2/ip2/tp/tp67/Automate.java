@@ -10,6 +10,27 @@ public class Automate {
     }
 
     /**
+     * Question 2.8
+     * Un constructeur qui prend une chaîne de caractères constituée
+     * de ’#’ et de ’-’, et crée l’automate correspondant.
+     * @param str une chaîne de caractère contient des '#' et tirets.
+     */
+    public Automate(String str){
+        Cellule c = new Cellule(true);
+        this.debut = c;
+        if (str.charAt(0) == '-'){
+            c.setNoire(false);
+        }
+        for(int i=1; i<str.length(); i++){
+            if(str.charAt(i) == '#'){
+                this.ajouteALaFin(new Cellule(true));
+                continue;
+            }
+            this.ajouteALaFin(new Cellule(false));
+        }
+    }
+
+    /**
      * Comme l'attribut 'debut' est privé, nous ne pouvons pas accéder sa valeur depuis une autre classe.
      * Pour y accéder en gardant sa visibilité(private), nous devons écrire une méthode getter.
      */
@@ -93,6 +114,35 @@ public class Automate {
         this.debut.afficher();
     }
 
+    /**
+     * Question 2.5:
+     * Une méthode qui  qui parcourt la liste deux fois, la première fois en calculant le prochain état,
+     * puis en faisant la mise à jour.
+     */
+    public void uneEtape(){
+        if(this.debut == null){
+            return;
+        }
+        this.debut.prochaineEtape();
+        this.debut.miseAJour();
+    }
 
+    /**
+     * Question 2.6:
+     * qui affiche d’abord l’état courant, puis effectue n étapes
+     * successives, en affichant les étapes intermédiaires.
+     * @param n
+     */
+    public void nEtapes(int n){
+        if(this.debut == null){
+            return;
+        }
+        this.debut.afficher();
+        for(int i=0; i<n; i++){
+            uneEtape();
+            debut.afficher();
+
+        }
+    }
 
 }
