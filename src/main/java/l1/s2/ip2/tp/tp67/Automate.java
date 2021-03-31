@@ -16,12 +16,7 @@ public class Automate {
      * @param str une chaîne de caractère contient des '#' et tirets.
      */
     public Automate(String str){
-        Cellule c = new Cellule(true);
-        this.debut = c;
-        if (str.charAt(0) == '-'){
-            c.setNoire(false);
-        }
-        for(int i=1; i<str.length(); i++){
+        for(int i=0; i<str.length(); i++){
             if(str.charAt(i) == '#'){
                 this.ajouteALaFin(new Cellule(true));
                 continue;
@@ -100,7 +95,9 @@ public class Automate {
             this.fin = c;
             return;
         }
-        c.setSuivante(this.debut);
+        if(c.getSuivante() == null) {
+            c.setSuivante(this.debut);
+        }
         this.debut = c;
     }
 
