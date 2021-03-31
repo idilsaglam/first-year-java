@@ -24,5 +24,15 @@ public class Test {
 
        //Ceci doit afficher '-#-#' car chaque cellule noir signifie '#' et chaque cellule blanche signifie '-'
        a.afficher();
+
+       //Question 2.7
+       a.nEtapes(4);
+
+       //Question 2.9
+       Automate automate = new Automate("----#----");
+       automate.afficher();
+
+       Automate b = new Automate();
+       b.initialisation();
    }
 }
