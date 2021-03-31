@@ -125,5 +125,14 @@ public class Cellule {
         this.prochainEtat = !unanimite;
     }
 
+    /**
+     * Question 2.4:
+     * Une méthode qui met à jour la valeur de noire en fonction de
+     * celle stockée dans prochainEtat.
+     */
+    public void miseAJour(){
+       this.setNoire(this.getProchainEtat());
+    }
+
 
 }
