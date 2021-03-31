@@ -90,6 +90,7 @@ public class ListeEntiers {
     //recursive
     public boolean egalRec(ListeEntiers arg){
         Cellule actArgListe = arg.getPremier();
+        return true;
 
     }
 
