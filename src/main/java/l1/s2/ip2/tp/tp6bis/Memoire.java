@@ -21,10 +21,25 @@ public class Memoire {
      * @param taille un entier signifiant
      */
     public Memoire(int taille){
-        Memoire mem = new Memoire();
         for(int i=0; i<taille; i++){
-            mem.suivante = new Memoire();
+            ajouteAlaFin();
         }
+        String a = "-";
+        System.out.println(a.repeat(taille));
+    }
+
+    public void ajouteAlaFin(){
+        Memoire act = this;
+        while (act.suivante !=  null){
+            act = act.suivante;
+        }
+        Memoire n = new Memoire();
+        act.suivante = n;
+        n.precedente = act;
+    }
+
+    public void inspecte(){
+
     }
 
     /**
