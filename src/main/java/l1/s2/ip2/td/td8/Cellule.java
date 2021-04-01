@@ -26,4 +26,37 @@ public class Cellule {
     public Enfant getEnfant(){
         return this.enfant;
     }
+    public void setEnfant(Enfant e){this.enfant = e;}
+
+    /**
+     * Question 1.4
+     * Une méthode qui supprime de la file l’enfant de nom nom. On suppose qu’il y a au plus un tel enfant.
+     * @param nom une chaîne de caractère signifiant le nom de l'enfant.
+     */
+    public void supprimer(String nom) {
+        Cellule act = this;
+        while (act.suivante != null){
+            if(act.suivante.getEnfant().getNom().equals(nom)){
+                act.setSuivante(act.suivante.suivante);
+            }
+        }
+        if(act.getEnfant().getNom().equals(nom)){
+            act.setEnfant(null);
+        }
+    }
+
+
+    /*
+     * Question 1.5:
+     * Une méthode qui affiche courant et tous les enfants en queue pour glisser.
+     */
+    public void afficher(){
+        Cellule act = this;
+        while (act!=null){
+            System.out.println(act.getEnfant().getNom() + "\s" + act.getEnfant().getNbTobogganUtilise());
+            act = act.suivante;
+        }
+    }
+
+
 }
