@@ -3,7 +3,7 @@ package l1.s2.ip2.tp.tp6bis;
 public class Memoire {
     private Memoire precedente;
     private Memoire suivante;
-    private int nb;
+    private int valeur;
 
     /**
      * Exercice 1.2
@@ -12,7 +12,7 @@ public class Memoire {
     public Memoire(){
         this.precedente = null;
         this.suivante = null;
-        this.nb = 0;
+        this.valeur = 0;
     }
 
     /**
@@ -21,7 +21,10 @@ public class Memoire {
      * @param taille un entier signifiant
      */
     public Memoire(int taille){
-
+        Memoire mem = new Memoire();
+        for(int i=0; i<taille; i++){
+            mem.suivante = new Memoire();
+        }
     }
 
     /**
@@ -35,10 +38,10 @@ public class Memoire {
         return this.precedente;
     }
     public int getNb(){
-        return this.nb;
+        return this.valeur;
     }
-    public void setNb(int nb){
-        this.nb = nb;
+    public void setNb(int valeur){
+        this.valeur = valeur;
     }
 
     public void afficher(){
