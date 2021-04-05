@@ -100,6 +100,7 @@ public class Cellule {
             System.out.print('-');
             act = act.suivante;
         }
+        System.out.println();
     }
 
     /**
@@ -108,21 +109,19 @@ public class Cellule {
      * et prochainEtat à false si elle sera blanche) en suivant la règle de l’unanimité.
      */
     public void prochaineEtape(){
-        boolean unanimite = false;
+        boolean[] bTab = new boolean[3];
         if(this.precedente != null){
-            unanimite = this.getPrecedente().getNoire();
+            bTab[0] = this.precedente.getNoire();
         }
-        unanimite = (unanimite==this.getNoire());
-        if(!unanimite){
-            this.prochainEtat = true;
-            return;
+        bTab[1] = this.getNoire();
+        if(this.suivante != null){
+            bTab[2] =  this.suivante.getNoire();
         }
-        unanimite = !this.getNoire();
-        if(this.getSuivante() != null){
-            unanimite = this.getNoire()==this.getSuivante().getNoire();
-        }
+        boolean unanimite = bTab[0] == bTab[1] && bTab[1] == bTab[2];
+
         this.prochainEtat = !unanimite;
     }
+
 
     /**
      * Question 2.4:
