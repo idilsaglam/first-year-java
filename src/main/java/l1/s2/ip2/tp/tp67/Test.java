@@ -24,12 +24,13 @@ public class Test {
 
        //Ceci doit afficher '-#-#' car chaque cellule noir signifie '#' et chaque cellule blanche signifie '-'
        a.afficher();
-
+        System.out.println("---------------------------------------");
        //Question 2.7
        a.nEtapes(4);
 
        //Question 2.9
        Automate automate = new Automate("----#----");
+       System.out.println("---------------------------------------");
        automate.afficher();
 
        Automate b = new Automate();
