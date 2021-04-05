@@ -54,8 +54,8 @@ public class FileToboggan {
         this.courantCellule.afficher();
     }
 
-    public Enfant unTour(){
-        this.courantCellule = this.courantCellule.getSuivante();
+    /*public Enfant unTour(){
 
-    }
+
+    }*/
 }
