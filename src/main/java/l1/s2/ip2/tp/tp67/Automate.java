@@ -120,8 +120,16 @@ public class Automate {
         if(this.debut == null){
             return;
         }
-        this.debut.prochaineEtape();
-        this.debut.miseAJour();
+        Cellule act = this.debut;
+        while (act != null) {
+            act.prochaineEtape();
+            act = act.getSuivante();
+        }
+        act = this.debut;
+        while (act != null) {
+            act.miseAJour();
+            act = act.getSuivante();
+        }
     }
 
     /**
