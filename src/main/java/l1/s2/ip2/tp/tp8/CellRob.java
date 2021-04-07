@@ -18,6 +18,12 @@ public class CellRob {
         this.robot = rob;
     }
 
+    public CellRob(Robot robot){
+        this.robot = robot;
+        this.precedente = this;
+        this.suivante = this;
+    }
+
     // Les accesseurs
     public CellRob getSuivante(){
         return this.suivante;
@@ -43,64 +49,7 @@ public class CellRob {
      * Une méthode qui affiche la liste des robots
      */
     public void affiche(){
-        CellRob act = this;
-        while (act != null){
-            act.getRobot().description();
-            act = act.suivante;
-        }
-    }
-
-    /**
-     * Exercice 2.4
-     * Une méthode qui supprime le robot d’identifiant id (le retire de la liste)
-     * @param id un entier signifiant id
-     * @return true si robot est supprimé sinon false
-     */
-    public boolean supprimer(int id){
-        CellRob c = this;
-        while (c.suivante != null){
-            if(c.suivante.getRobot().getId() == id){
-                c.setSuivante(c.suivante.suivante);
-                c.suivante.suivante.precedente = this;
-                return true;
-            }
-            c=c.suivante;
-        }
-        return false;
-    }
-
-    /**
-     * Exercice 2.5
-     * Une méthode qui supprime le robot dont le nom est donné en paramètre
-     * @param nom une chaîne de caractère signifiant le nom du robot
-     * @return true si robot est supprimé sinon false
-     */
-    public boolean supprimer(char nom){
-        CellRob c = this;
-        while (c.suivante != null){
-            if(c.suivante.getRobot().getNom() == nom){
-                c.setSuivante(c.suivante.suivante);
-                c.suivante.suivante.precedente = this;
-                return true;
-            }
-            c=c.suivante;
-        }
-        return false;
-    }
-
-
-    public void DiscussionEntreRobots(){
-        CellRob act = this;
-        while (act != null){
-            act.getRobot().parle(5);
-            act = act.suivante;
-        }
-
-
-
-
-
-
+       this.getRobot().description();
     }
 
 }
