@@ -18,10 +18,10 @@ public class Automate {
     public Automate(String str){
         for(int i=0; i<str.length(); i++){
             if(str.charAt(i) == '#'){
-                this.ajouteALaFin(new Cellule(true));
+                this.ajouteALaFin(true);
                 continue;
             }
-            this.ajouteALaFin(new Cellule(false));
+            this.ajouteALaFin(false);
         }
     }
 
@@ -41,41 +41,26 @@ public class Automate {
         return this.fin;
     }
 
+    /**
+     * Exercice 2.1
+     * Une méthode qui fixe l’état de l’automate comme représenté à la figure précédente à t = 0
+     */
     public void initialisation(){
-        Cellule c = new Cellule(true);
-        Cellule c2 = new Cellule(true);
-        Cellule c3 = new Cellule(true);
+        this.debut = null;
+        this.fin = null;
+        boolean[] tab = {true,true,true,false,false,false,true,false,false,false,false};
 
-        Cellule c4 = new Cellule(false);
-        Cellule c5 = new Cellule(false);
-        Cellule c6 = new Cellule(false);
-
-        Cellule c7 = new Cellule(true);
-
-        Cellule c8 = new Cellule(false);
-        Cellule c9 = new Cellule(false);
-        Cellule c10 = new Cellule(false);
-        Cellule c11 = new Cellule(false);
-
-        this.debut = c;
-        this.debut.setSuivante(c2);
-        c2.setSuivante(c3);
-        c3.setSuivante(c4);
-        c4.setSuivante(c5);
-        c5.setSuivante(c6);
-        c6.setSuivante(c7);
-        c7.setSuivante(c8);
-        c8.setSuivante(c9);
-        c9.setSuivante(c10);
-        c10.setSuivante(c11);
-        this.fin = c11;
+        for(int i=0; i< tab.length;i++){
+            this.ajouteALaFin(tab[i]);
+        }
 
     }
     /**
      * Question 1.2: Une méthode qui permet d'ajouter une Cellule à la fin de la liste.
-     * @param c Cellule que nous voulons ajouter.
+     * @param b la couleur de la cellule à ajouter
      */
-    public void ajouteALaFin(Cellule c){
+    public void ajouteALaFin(boolean b){
+        Cellule c = new Cellule(b);
         if(this.debut == null){
             this.debut = c;
             this.fin = c;
@@ -87,17 +72,16 @@ public class Automate {
 
     /**
      * Question 1.2: Une méthode qui permet d'ajouter une Cellule au debut da la liste.
-     * @param c Cellule que nous voulons ajouter
+     * @param b la couleur de la cellule à ajouter
      */
-    public void ajouteAuDebut(Cellule c){
+    public void ajouteAuDebut(boolean b){
+        Cellule c = new Cellule(b);
         if(this.debut == null){
             this.debut = c;
             this.fin = c;
             return;
         }
-        if(c.getSuivante() == null) {
-            c.setSuivante(this.debut);
-        }
+        c.setSuivante(this.debut);
         this.debut = c;
     }
 
@@ -111,25 +95,38 @@ public class Automate {
         this.debut.afficher();
     }
 
-    /**
-     * Question 2.5:
-     * Une méthode qui  qui parcourt la liste deux fois, la première fois en calculant le prochain état,
-     * puis en faisant la mise à jour.
-     */
-    public void uneEtape(){
+    public void prochainEtape(Regle regle){
         if(this.debut == null){
             return;
         }
         Cellule act = this.debut;
         while (act != null) {
-            act.prochaineEtape();
+            act.prochaineEtape(regle);
             act = act.getSuivante();
         }
-        act = this.debut;
+    }
+
+    public void miseAJour(){
+        if(this.debut == null){
+            return;
+        }
+        Cellule act = this.debut;
         while (act != null) {
             act.miseAJour();
             act = act.getSuivante();
         }
+    }
+    /**
+     * Question 2.5:
+     * Une méthode qui  qui parcourt la liste deux fois, la première fois en calculant le prochain état,
+     * puis en faisant la mise à jour.
+     */
+    public void uneEtape(Regle regle){
+        if(this.debut == null){
+            return;
+        }
+        this.prochainEtape(regle);
+        this.miseAJour();
     }
 
     /**
@@ -138,15 +135,14 @@ public class Automate {
      * successives, en affichant les étapes intermédiaires.
      * @param n
      */
-    public void nEtapes(int n){
+    public void nEtapes(int n, Regle r){
         if(this.debut == null){
             return;
         }
-        this.debut.afficher();
+        this.afficher();
         for(int i=0; i<n; i++){
-            uneEtape();
-            debut.afficher();
-
+            uneEtape(r);
+            this.afficher();
         }
     }
 
