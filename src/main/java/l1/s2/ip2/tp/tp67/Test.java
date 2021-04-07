@@ -77,8 +77,7 @@ public class Test {
        System.out.println("**************");
        System.out.println();
 
-       a.nEtapes(4, Regle.UNANIMITE);
-
+       a.nEtapes(4, Regle.MAJORITE);
        System.out.println();
    }
 }
