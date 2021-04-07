@@ -108,7 +108,7 @@ public class Cellule {
      * Une méthode qui met prochainEtat à true si la cellule sera noire à l’instant suivant (
      * et prochainEtat à false si elle sera blanche) en suivant la règle de l’unanimité.
      */
-    public void prochaineEtape(){
+    public void prochaineEtape(Regle regle){
         boolean[] bTab = new boolean[3];
         if(this.precedente != null){
             bTab[0] = this.precedente.getNoire();
@@ -117,9 +117,17 @@ public class Cellule {
         if(this.suivante != null){
             bTab[2] =  this.suivante.getNoire();
         }
-        boolean unanimite = bTab[0] == bTab[1] && bTab[1] == bTab[2];
-
-        this.prochainEtat = !unanimite;
+        switch (regle) {
+            case UNANIMITE:
+                this.setProchainEtat(!(bTab[0] == bTab[1] && bTab[1] == bTab[2]));
+                break;
+            case MAJORITE:
+                int sum = (bTab[0] ? 1 : 0) + (bTab[1] ? 1 : 0) + (bTab[2] ? 1 : 0);
+                this.setProchainEtat(sum>=2);
+                break;
+            default:
+                break;
+        }
     }
 
 
