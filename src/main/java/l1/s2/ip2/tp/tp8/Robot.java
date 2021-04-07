@@ -1,7 +1,7 @@
 package l1.s2.ip2.tp.tp8;
 
 public class Robot {
-    public static int nbRob=-1;
+    private static int nbRob=0;
     private int id;
     private int np; //nombre de paroles restantes à prononcer
     private char nom;
@@ -16,9 +16,7 @@ public class Robot {
     public Robot(char nom, String texte){
         Robot.nbRob++;
         this.id = nbRob;
-        for(int i=0; i<texte.length(); i++){
-            np++;
-        }
+        this.np=texte.length();
         this.nom = nom;
     }
 
@@ -26,6 +24,7 @@ public class Robot {
         return this.id;
     }
     public char getNom(){return this.nom;}
+    public int getNp(){return this.np;}
 
     /**
      * Exercice 1.3
@@ -33,11 +32,9 @@ public class Robot {
      * @return true si le robot a fini de parler sinon false
      */
     public boolean finitDeParler() {
-        if(this.np == 0) {
-            return true;
-        }
-        return false;
+        return (this.np == 0);
     }
+
 
     /**
      * Exercice
