@@ -10,30 +10,75 @@ public class Test {
        //Nous créons une automate.
        Automate a = new Automate();
 
-       //Nous définissions les cellules que nous allons ajouter à l'automate
-       Cellule c = new Cellule(true);
-       Cellule d = new Cellule(false);
-       Cellule g = new Cellule(true);
-       Cellule f = new Cellule(false);
 
-       //Nous les ajoutons un par un.
-       a.ajouteAuDebut(c);
-       a.ajouteAuDebut(d);
-       a.ajouteAuDebut(g);
-       a.ajouteAuDebut(f);
+       //Exercice 1.3
+       a.ajouteAuDebut(true);
+       a.ajouteAuDebut(true);
+       a.ajouteAuDebut(true);
 
-       //Ceci doit afficher '-#-#' car chaque cellule noir signifie '#' et chaque cellule blanche signifie '-'
+       a.ajouteALaFin(false);
+       a.ajouteALaFin(false);
+       a.ajouteALaFin(false);
+
+       a.ajouteALaFin(true);
+
+       a.ajouteALaFin(false);
+       a.ajouteALaFin(false);
+       a.ajouteALaFin(false);
+       a.ajouteALaFin(false);
+
+       System.out.println("**************");
+       System.out.println("* Exercice 1 *");
+       System.out.println("* Question 3 *");
+       System.out.println("**************");
+       System.out.println();
+       //Ceci doit afficher '###---#----' car chaque cellule noir signifie '#' et chaque cellule blanche signifie '-'
        a.afficher();
-        System.out.println("---------------------------------------");
+
+       System.out.println();
+       System.out.println("**************");
+       System.out.println("* Exercice 2 *");
+       System.out.println("* Question 7 *");
+       System.out.println("**************");
+       System.out.println();
        //Question 2.7
-       a.nEtapes(4);
+       a.nEtapes(4, Regle.UNANIMITE);
+
+       System.out.println();
+
+       System.out.println("**************");
+       System.out.println("* Exercice 2 *");
+       System.out.println("* Question 9 *");
+       System.out.println("**************");
+       System.out.println();
 
        //Question 2.9
        Automate automate = new Automate("----#----");
-       System.out.println("---------------------------------------");
        automate.afficher();
 
+       System.out.println();
+       Automate av = new Automate("##--#--");
+       av.afficher();
+
+       System.out.println();
+       System.out.println("**************");
+       System.out.println("* Initialisation *");
+       System.out.println("**************");
+       System.out.println();
        Automate b = new Automate();
        b.initialisation();
+       b.afficher();
+       System.out.println();
+
+       System.out.println();
+       System.out.println("**************");
+       System.out.println("* Exercice 2 *");
+       System.out.println("* Question 10 *");
+       System.out.println("**************");
+       System.out.println();
+
+       a.nEtapes(4, Regle.UNANIMITE);
+
+       System.out.println();
    }
 }
