@@ -9,9 +9,15 @@ public class TableRonde {
      * @param robot
      */
     public TableRonde(Robot robot){
-        this.courant = new CellRob(robot,null,null);
+        this.courant = new CellRob(robot);
     }
 
+    public CellRob getCourant(){
+        return this.courant;
+    }
+    public void setCourant(CellRob c){
+        this.courant =c;
+    }
     /**
      * Exercice 2.2
      * Une méthode qui affiche la liste des robots
@@ -20,7 +26,14 @@ public class TableRonde {
         if(this.courant == null){
             return;
         }
-        this.courant.affiche();
+        int iid =this.courant.getRobot().getId();
+        CellRob act = this.courant;
+        do{
+           act.affiche();
+           act = act.getSuivante();
+        }while(iid != act.getRobot().getId());
+
+
     }
 
     /**
@@ -31,10 +44,10 @@ public class TableRonde {
      */
     public void ajouteRob(Robot r){
         if(this.courant == null){
-            this.courant = new CellRob(r,null,null);
+            this.courant = new CellRob(r);
             return;
         }
-        CellRob c = new CellRob(r,this.courant,this.courant.getPrecedente().getPrecedente());
+        CellRob c = new CellRob(r,this.courant,this.courant.getPrecedente());
         this.courant.setPrecedente(c);
         c.getPrecedente().setSuivante(c);
     }
@@ -46,35 +59,109 @@ public class TableRonde {
      * @return true si robot est supprimé sinon false
      */
     public boolean supprimer(int id){
+        // On contrôle si la liste est vide
         if(this.courant == null){
             return false;
         }
-
-        if(this.courant.getRobot().getId()==id){
+        // On contrôle si la liste contient un seul élément et cet élément c'est élément qu'on cherche
+        if (
+                this.courant.getRobot().getId() == this.courant.getSuivante().getRobot().getId() &&
+                this.courant.getRobot().getId() == this.courant.getPrecedente().getRobot().getId() &&
+                this.courant.getRobot().getId() == id
+        ) {
             this.courant = null;
             return true;
         }
 
-        return this.courant.supprimer(id);
+        if(this.courant.getRobot().getId() == id){
+            this.courant.getPrecedente().setSuivante(this.courant.getSuivante());
+            this.courant.getSuivante().setPrecedente(this.courant.getPrecedente());
+            this.courant = this.courant.getSuivante();
+            return true;
+        }
+
+        int iid = this.courant.getRobot().getId();
+        CellRob act = this.courant;
+
+        while(act.getRobot().getId() != iid){
+            if (act.getRobot().getId() == id) {
+                // si on trouve le robot à supprimer
+                act.getPrecedente().setSuivante(act.getSuivante());
+                act.getSuivante().setPrecedente(act.getPrecedente());
+                return true;
+            }
+            // Si on n'a pas encore trouvé, on passé à la suivante
+            act = act.getSuivante();
+        }
+        return false;
     }
 
     /**
      * Exercice 2.5
      * Une méthode qui supprime le robot dont le nom est donné en paramètre
-     * @param nom une chaîne de caractère signifiant le nom du robot
+     * @param nom une caractère signifiant le nom du robot
      * @return true si robot est supprimé sinon false
      */
     public boolean supprimer(char nom){
+        // On contrôle si la liste est vide
         if(this.courant == null){
             return false;
         }
-        if(this.courant.getRobot().getNom() == nom){
+
+        // On contrôle si la liste contient un seul élément et cet élément c'est élément qu'on cherche
+        if (
+                this.courant.getRobot().getId() == this.courant.getSuivante().getRobot().getId() &&
+                this.courant.getRobot().getId() == this.courant.getPrecedente().getRobot().getId() &&
+                this.courant.getRobot().getNom() == nom
+        ) {
             this.courant = null;
             return true;
         }
-        return this.courant.supprimer(nom);
+
+        // On contrôle si l'élément courant contient le robot qu'on veut supprimer
+        if(this.courant.getRobot().getNom() == nom){
+            this.courant.getPrecedente().setSuivante(this.courant.getSuivante());
+            this.courant.getSuivante().setPrecedente(this.courant.getPrecedente());
+            // Comme on vient de supprimer la cellule courant de la liste, nous allons déplacer son pointeur à la
+            // cellule suivante
+            this.courant = this.courant.getSuivante();
+            return true;
+        }
+
+        int iid = this.courant.getRobot().getId();
+        CellRob act = this.courant;
+
+        while(act.getRobot().getId() != iid){
+            if (act.getRobot().getNom() == nom) {
+                // si on trouve le robot à supprimer
+                act.getPrecedente().setSuivante(act.getSuivante());
+                act.getSuivante().setPrecedente(act.getPrecedente());
+                return true;
+            }
+            // Si on n'a pas encore trouvé, on passé à la suivante
+            act = act.getSuivante();
+        }
+        return false;
+
     }
 
+    /**
+     * Exercice 2.6
+     */
+    public void parle5Paroles(){
+        if(this.courant == null){
+            return;
+        }
 
+        while (this.courant != null){
+            this.courant.getRobot().parle(5);
+            if(this.courant.getRobot().getNp() == 0){
+                supprimer(this.courant.getRobot().getId());
+            }
+            if(this.courant != null) {
+                this.courant = this.courant.getSuivante();
+            }
+        }
+    }
 
 }
