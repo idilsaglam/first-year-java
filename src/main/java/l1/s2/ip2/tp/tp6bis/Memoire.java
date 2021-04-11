@@ -1,4 +1,3 @@
-package l1.s2.ip2.tp.tp6bis;
 
 public class Memoire {
     private Memoire precedente;
@@ -21,26 +20,30 @@ public class Memoire {
      * @param taille un entier signifiant
      */
     public Memoire(int taille){
-        for(int i=0; i<taille; i++){
-            ajouteAlaFin();
+        // Initialisons la première case de la mémoire
+        this();
+        // Nous ajoutons les cases (taille - 1 cases) restant avec une boucle for
+        for (int i = 0; i<(taille-1); i++) {
+            // Créons une case mémoire vide
+            Memoire m = new Memoire();
+            // Nous ajoutons cette case de mémoire vide à la fin de notre la case mémoire courant
+            // à l'aide de la méthode add(Memoire c) que nous allons implémenté en dessous
+            this.add(m);
         }
-        String a = "-";
-        System.out.println(a.repeat(taille));
     }
 
-    public void ajouteAlaFin(){
+    private void add(Memoire c) {
         Memoire act = this;
-        while (act.suivante !=  null){
+        // Itérons jusqu'à la dernière case de mémoire
+        while (act.suivante != null) {
             act = act.suivante;
         }
-        Memoire n = new Memoire();
-        act.suivante = n;
-        n.precedente = act;
+        // Ajoutons à la fin de la dernière case mémoire
+        act.suivante = c;
+        // La dernière case mémoire doit être la case précédente de la case c
+        c.precedente = act;
     }
 
-    public void inspecte(){
-
-    }
 
     /**
      * Exercice 1.4:
@@ -52,14 +55,57 @@ public class Memoire {
     public Memoire getPrecedente(){
         return this.precedente;
     }
-    public int getNb(){
+    public int getValeur(){
         return this.valeur;
     }
-    public void setNb(int valeur){
+    public void setValeur(int valeur){
         this.valeur = valeur;
     }
 
-    public void afficher(){
-
+    private String inspectLeft() {
+        Memoire act = this.getPrecedente();
+        StringBuilder res = new StringBuilder();
+        while (act != null) {
+            res.append(" ").append(act.getValeur());
+            act = act.getPrecedente();
+        }
+        return res.toString().trim();
     }
+    private String inspectRight() {
+        Memoire act = this.getSuivante();
+        StringBuilder res = new StringBuilder();
+        while (act != null) {
+            res.append(" ").append(act.getValeur());
+            act = act.getSuivante();
+        }
+        return res.toString().trim();
+    }
+    public void inspecte() {
+        String left = this.inspectLeft();
+        String right = this.inspectRight();
+        String val = this.getValeur() + "";
+        String valueLine = "";
+        if (left.length() != 0) {
+            valueLine += left + " ";
+        }
+        valueLine += val;
+        if (right.length() != 0) {
+            valueLine += " " + right;
+        }
+        String dashedLine = "-".repeat(valueLine.length());
+        String indicatorLine = " ".repeat((left.length() == 0) ? 0 : (left.length() + 1)) + "^";
+        System.out.println(dashedLine);
+        System.out.println(valueLine);
+        System.out.println(indicatorLine);
+        System.out.println(dashedLine);
+    }
+
+    public void incrementValeur() {
+        this.valeur++;
+    }
+    public void decrimentValeur() {
+        this.valeur--;
+    }
+
+
 }
