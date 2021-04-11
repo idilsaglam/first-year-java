@@ -16,5 +16,10 @@ public class Main {
         System.out.println("IP2-TP8");
         l1.s2.ip2.tp.tp8.Test.main(args);
 
+        System.out.println("UP2-TP6bis");
+        //l1.s2.ip2.tp.tp6bis.Test.main(args);
+
+        System.out.println("IP2 - TP9");
+        l1.s2.ip2.tp.tp9.Main.main(args);
     }
 }
