@@ -89,6 +89,34 @@ public class Noeud {
       return res;
     }
 
+    public boolean estFeuille(){
+        return ((this.gauche == null) && (this.droit == null));
+    }
+    public int profondeur(){
+        if(estFeuille()){
+            return 1;
+        }
+        int hg=0;
+        int hd=0;
+        if(this.gauche != null){
+            hg= this.gauche.profondeur();
+        }
+        if(this.droit != null){
+            hg = this.droit.profondeur();
+        }
+        return 1+Math.max(hg,hd);
+    }
 
-
+    public boolean recherche(int e){
+        if(this.etiquette == e){
+            return true;
+        }
+        if(this.droit != null){
+            this.droit.recherche(e);
+        }
+        if(this.gauche != null){
+            this.gauche.recherche(e);
+        }
+        return false;
+    }
 }
