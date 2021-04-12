@@ -10,6 +10,8 @@ public class Arbre {
         this(null);
     }
 
+
+
     //getters et setters
     public Noeud getSommet(){
         return this.sommet;
@@ -48,5 +50,19 @@ public class Arbre {
             return 0;
         }
         return this.sommet.somme();
+    }
+
+    public int profondeur(){
+        if(this.sommet == null){
+            return 0;
+        }
+        return this.sommet.profondeur();
+    }
+
+    public boolean recherche(int e){
+        if(this.sommet == null){
+            return false;
+        }
+        return this.sommet.recherche(e);
     }
 }
