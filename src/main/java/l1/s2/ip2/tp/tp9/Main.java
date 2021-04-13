@@ -16,5 +16,8 @@ public class Main {
         System.out.println(g.nbDeNoeuds());
         System.out.println();
         System.out.println(g.somme());
+        System.out.println(g.profondeur());
+        System.out.println(g.recherche(4));
+        System.out.println(g.recherche(333));
     }
 }
