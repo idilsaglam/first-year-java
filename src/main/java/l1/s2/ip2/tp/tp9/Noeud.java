@@ -40,7 +40,10 @@ public class Noeud {
         this.gauche = gauche;
     }
 
-    //Ex 1.3
+    /**
+     * Exercice 1.1:
+     * Une méthode qui permettent d’afficher un arbre dans l’ordre infixe.
+     */
     public void afficheInfixe(){
         if(this.gauche != null) {
             this.gauche.afficheInfixe();
@@ -51,8 +54,10 @@ public class Noeud {
         }
     }
 
-    //Ex 1.3
-    //TODO
+    /**
+     * Exercice 1.3
+     * Une méthode qui permettent d’afficher un arbre dans l’ordre suffixe.
+     */
     public void afficheSuffixe(){
         if(this.gauche != null){
             this.gauche.afficheSuffixe();
@@ -63,7 +68,10 @@ public class Noeud {
         System.out.print(this.etiquette + " ");
     }
 
-    // Ex 1.4
+    /**
+     * Exercice 1.4
+     * @return le nombre de nœuds d’un arbre
+     */
     public int nbDeNoeuds(){
         int result = 1;
         if(this.gauche != null){
@@ -75,8 +83,11 @@ public class Noeud {
         return result;
 
     }
-    //TODO:
 
+    /**
+     * Exercice 1.5
+     * @return la somme des étiquettes d’un arbre.
+     */
     public int somme(){
       int res =  0;
       res+= this.etiquette;
@@ -89,34 +100,64 @@ public class Noeud {
       return res;
     }
 
+    /**
+     * @return true si le noeud est un feuille, sinon false
+     */
     public boolean estFeuille(){
         return ((this.gauche == null) && (this.droit == null));
     }
+
+    /**
+     * Exercice 1.6
+     * @return la profondeur d’un arbre
+     */
     public int profondeur(){
         if(estFeuille()){
             return 1;
         }
-        int hg=0;
-        int hd=0;
+        int result=0;
         if(this.gauche != null){
-            hg= this.gauche.profondeur();
+            result= this.gauche.profondeur();
         }
         if(this.droit != null){
-            hg = this.droit.profondeur();
+            int t = this.droit.profondeur();
+            if (t > result) {
+                result = t;
+            }
         }
-        return 1+Math.max(hg,hd);
+        return 1+result;
     }
 
+    /**
+     * Exercice 1.7
+     * @param e le noeud que nous cherchons dans l'arbre
+     * @return true si le noeud est existe, false sinon
+     */
+
     public boolean recherche(int e){
+        boolean res = false;
         if(this.etiquette == e){
             return true;
         }
         if(this.droit != null){
-            this.droit.recherche(e);
+            res = this.droit.recherche(e);
+        }
+        if(res){
+            return res;
         }
         if(this.gauche != null){
-            this.gauche.recherche(e);
+            res = this.gauche.recherche(e);
         }
-        return false;
+        return (res) ;
+    }
+
+    public void copier(Arbre a){
+        Arbre a = new Arbre(a.getSommet());
+        if(this.gauche != null){
+            this.gauche = a.getSommet().gauche;
+        }
+        if(this.droit != null){
+            this.droit = a.getSommet().droit;
+        }
     }
 }
