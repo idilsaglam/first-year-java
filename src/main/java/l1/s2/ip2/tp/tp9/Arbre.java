@@ -19,7 +19,17 @@ public class Arbre {
     }
 
     public Arbre(int[] tab){
-        for
+        if(tab.length == 0) {
+            this.sommet = null;
+        }else{
+            int r = tab.length / 2;
+            int[] tabG = new int[r], tabD =new int[tab.length-(r+1)];
+
+            System.arraycopy(tab,0,tabG,0,tabG.length);
+            System.arraycopy(tab,r+1,tabD,0,tabD.length);
+
+            this.sommet = new Noeud(tab[r],new Arbre(tabG).sommet,new Arbre(tabD).sommet);
+        }
     }
 
     //getters et setters
