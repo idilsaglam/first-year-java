@@ -19,5 +19,8 @@ public class Main {
         System.out.println(g.profondeur());
         System.out.println(g.recherche(4));
         System.out.println(g.recherche(333));
+
+        Arbre h = new Arbre(g);
+        h.afficheInfixe();
     }
 }
