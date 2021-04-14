@@ -7,9 +7,20 @@ public class Arbre {
     }
 
     public Arbre(){
-        this(null);
+       this.sommet = null;
     }
 
+    public Arbre(Arbre a){
+        if(a.sommet == null){
+           this.sommet = null;
+           return;
+        }
+        this.sommet = new Noeud(a.sommet);
+    }
+
+    public Arbre(int[] tab){
+        for
+    }
 
     //getters et setters
     public Noeud getSommet(){
