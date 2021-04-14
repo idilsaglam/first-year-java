@@ -4,6 +4,7 @@ public class Noeud {
     private int etiquette;
     private Noeud gauche;
     private Noeud droit;
+    private Noeud ;
 
     public Noeud (int etiquette, Noeud g, Noeud d){
         this.etiquette = etiquette;
@@ -13,6 +14,16 @@ public class Noeud {
 
     public Noeud(int etiquette){
         this(etiquette,null,null);
+    }
+
+    public Noeud(Noeud noeud){
+        this(noeud.etiquette);
+        if(noeud.gauche != null){
+            this.gauche = new Noeud(noeud.gauche);
+        }
+        if(noeud.droit != null){
+            this.droit = new Noeud(noeud.droit);
+        }
     }
 
     //getters et setters
@@ -151,13 +162,6 @@ public class Noeud {
         return (res) ;
     }
 
-    public void copier(Arbre a){
-        Arbre a = new Arbre(a.getSommet());
-        if(this.gauche != null){
-            this.gauche = a.getSommet().gauche;
-        }
-        if(this.droit != null){
-            this.droit = a.getSommet().droit;
-        }
-    }
+
+
 }
