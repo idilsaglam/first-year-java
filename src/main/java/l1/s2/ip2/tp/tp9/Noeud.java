@@ -4,7 +4,7 @@ public class Noeud {
     private int etiquette;
     private Noeud gauche;
     private Noeud droit;
-    private Noeud ;
+
 
     public Noeud (int etiquette, Noeud g, Noeud d){
         this.etiquette = etiquette;
