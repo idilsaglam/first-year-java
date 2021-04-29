@@ -1,5 +1,7 @@
 package l1.s2.ip2.tp.tp9;
 
+import java.util.Stack;
+
 public class Noeud {
     private int etiquette;
     private Noeud gauche;
@@ -160,6 +162,22 @@ public class Noeud {
             res = this.gauche.recherche(e);
         }
         return (res) ;
+    }
+
+    public void parcoursIteratif(){
+        Stack<Noeud> s = new Stack<Noeud>();
+        Noeud tmp;
+        s.push(this);
+        while(!s.empty()){
+            tmp =s.pop();
+            System.out.print(tmp.etiquette + " ");
+            if(tmp.droit != null){
+                s.push(tmp.droit);
+            }
+            if(tmp.gauche != null){
+                s.push(tmp.gauche);
+            }
+        }
     }
 
 
