@@ -110,4 +110,11 @@ public class Arbre {
         }
         return this.sommet.recherche(e);
     }
+
+    public void parcoursIteratif(){
+        if(this.sommet ==  null){
+            return;
+        }
+        this.sommet.parcoursIteratif();
+    }
 }
