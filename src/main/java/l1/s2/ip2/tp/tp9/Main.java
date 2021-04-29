@@ -17,10 +17,15 @@ public class Main {
         System.out.println();
         System.out.println(g.somme());
         System.out.println(g.profondeur());
+        System.out.println("recherche 4");
         System.out.println(g.recherche(4));
         System.out.println(g.recherche(333));
 
         Arbre h = new Arbre(g);
         h.afficheInfixe();
+
+        g.afficheInfixe();
+        g.afficheSuffixe();
+        g.parcoursIteratif();
     }
 }
