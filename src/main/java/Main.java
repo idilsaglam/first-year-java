@@ -24,5 +24,8 @@ public class Main {
 
         System.out.println("IP2 - TP9");
         l1.s2.ip2.tp.tp9.Main.main(args);
+
+        System.out.println("IP2-TP10");
+        l1.s2.ip2.tp.tp10.Main.main(args);
     }
 }
