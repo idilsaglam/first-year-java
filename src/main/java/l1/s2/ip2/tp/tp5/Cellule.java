@@ -11,7 +11,7 @@ public class Cellule {
         this.suivant = suivant;
     }
     public void setSuivante(Cellule suivant){
-        this.suivant = suivant;
+        this.suivant = suivant; 
     }
     public Cellule getSuivant(){
         return this.suivant;
