@@ -1,9 +1,10 @@
 package l1.s2.revision.td11;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Noeud {
-    ArrayList<Noeud> fils = new ArrayList<Noeud>();
+    ArrayList<Noeud> fils = new ArrayList<>();
     char character;
 
     public Noeud(){
@@ -19,7 +20,7 @@ public class Noeud {
         if(this.character==a){
             return this;
         }
-        for(int i=0; i<fils.size(); i++) {
+        for(int i=0; i<this.fils.size(); i++) {
             Noeud f = this.fils.get(i); // i inci elemnanini aliyor.
             if (f.character != ' ') {
                 f = f.aPourEnfant(a);
@@ -72,16 +73,31 @@ public class Noeud {
         n.ajouteMotInterne(mot);
     }
 
+
     public void ajouteUnMot(String mot){
-        if (this.character == mot.charAt(0)) {
+            if (this.character == mot.charAt(0)) {
             this.ajouteMotInterne(mot);
         }
     }
 
 
-    public void afficheSorted() {
+    public ArrayList<String> afficheSorted() {
+        ArrayList<String> l = new ArrayList<>();
+        for (int i = 0; i<this.fils.size(); i++) {
 
+            if (this.fils.get(i).character == ' ') {
+                l.add(this.character+"");
+                continue;
+            }
+            ArrayList<String> sortedFils = this.fils.get(i).afficheSorted();
+            for (int j = 0; j<sortedFils.size(); j++) {
+                    l.add(this.character + sortedFils.get(j));
+            }
+        }
+        Collections.sort(l);
+        return l;
     }
+
 
 
 
