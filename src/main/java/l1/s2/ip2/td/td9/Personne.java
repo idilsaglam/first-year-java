@@ -145,9 +145,7 @@ public class Personne {
         return (pere.mere.estFrereOuSoeur(pere.pere) || pere.mere.estCousinGermain(pere.pere) || this.mere.estFrereOuSoeur(this.pere) || this.mere.estFrereOuSoeur(this.pere));
     }
 
-    public ArrayList<Personne> getTousLesAscendants(){
-
-    }
+    //public ArrayList<Personne> getTousLesAscendants(){ }
 
     @Override
     public boolean equals(Object o){
