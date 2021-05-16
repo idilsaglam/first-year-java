@@ -90,7 +90,9 @@ import java.util.ArrayList;
             }
         }
 
+        public double eval(){
 
+        }
 
 
 
