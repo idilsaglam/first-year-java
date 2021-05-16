@@ -34,5 +34,10 @@ public class Main {
         System.out.println("IP2-TP11");
         l1.s2.revision.tp11.Test.main(args);
 
+        System.out.println("IP2-TP9 REVISION");
+        l1.s2.revision.tp9ikinci.Main.main(args);
+
+        System.out.println("PARTIEL");
+        l1.s2.revision.partiel.Main.main(args);
     }
 }
